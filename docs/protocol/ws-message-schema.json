@@ -1,0 +1,284 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://maas.local/schemas/ws-message-schema.json",
+  "title": "MaaS Runtime WebSocket Message",
+  "description": "Java runtime-hub 与 Python 运行时组件之间的 WS 控制面消息契约（单一事实来源）。Java 与 Python 均基于本文件做双向校验。",
+  "type": "object",
+  "$defs": {
+    "wsMessageType": {
+      "type": "string",
+      "enum": [
+        "AUTH",
+        "AUTH_ACK",
+        "NODE_REGISTER",
+        "NODE_STATUS",
+        "PING",
+        "PONG",
+        "TASK_ASSIGN",
+        "TASK_ACK",
+        "TASK_PROGRESS",
+        "TASK_LOG",
+        "TASK_RESULT",
+        "TASK_ERROR",
+        "TASK_CANCEL",
+        "CONFIG_UPDATE"
+      ]
+    },
+    "wsRuntimeType": {
+      "type": "string",
+      "enum": ["model-puller", "model-compressor", "model-trainer", "model-server"]
+    },
+    "errorCode": {
+      "type": "integer",
+      "enum": [1000, 4001, 4002, 4003, 4004, 4100, 4101, 4102, 4103, 4200, 4201, 4300, 4301, 4302, 4400, 4401, 4500, 5000]
+    },
+    "errorInfo": {
+      "type": "object",
+      "required": ["code", "message", "retryable"],
+      "properties": {
+        "code": { "$ref": "#/$defs/errorCode" },
+        "message": { "type": "string" },
+        "detail": { "type": ["string", "null"] },
+        "retryable": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "envelope": {
+      "type": "object",
+      "required": ["type", "msgId", "runtimeType", "nodeId", "tenantId", "timestamp"],
+      "properties": {
+        "type": { "$ref": "#/$defs/wsMessageType" },
+        "msgId": { "type": "string", "minLength": 1 },
+        "taskId": { "type": ["string", "null"] },
+        "runtimeType": { "$ref": "#/$defs/wsRuntimeType" },
+        "nodeId": { "type": "string", "minLength": 1 },
+        "tenantId": { "type": "integer", "minimum": 0 },
+        "timestamp": { "type": "integer", "minimum": 0 },
+        "traceId": { "type": ["string", "null"] },
+        "payload": { "type": ["object", "null"] }
+      },
+      "additionalProperties": false
+    },
+
+    "authPayload": {
+      "type": "object",
+      "required": ["token"],
+      "properties": { "token": { "type": "string", "minLength": 1 } },
+      "additionalProperties": false
+    },
+    "authAckPayload": {
+      "type": "object",
+      "required": ["ok", "heartbeatIntervalSeconds"],
+      "properties": {
+        "ok": { "type": "boolean" },
+        "serverTime": { "type": "integer", "minimum": 0 },
+        "heartbeatIntervalSeconds": { "type": "integer", "minimum": 1 },
+        "reason": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "gpuInfo": {
+      "type": "object",
+      "required": ["gpuType", "gpuCount", "gpuMemMb"],
+      "properties": {
+        "gpuType": { "type": "string" },
+        "gpuCount": { "type": "integer", "minimum": 0 },
+        "gpuMemMb": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": true
+    },
+    "nodeRegisterPayload": {
+      "type": "object",
+      "required": ["capabilities", "runningTasks"],
+      "properties": {
+        "capabilities": { "$ref": "#/$defs/gpuInfo" },
+        "version": { "type": ["string", "null"] },
+        "runningTasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["taskId", "status", "progress"],
+            "properties": {
+              "taskId": { "type": "string" },
+              "status": { "type": "string" },
+              "progress": { "type": "integer", "minimum": 0, "maximum": 100 }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodeStatusPayload": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "type": "string", "enum": ["online", "offline", "busy"] },
+        "gpuUtil": { "type": ["number", "null"] },
+        "memUsedMb": { "type": ["integer", "null"] },
+        "load": { "type": ["number", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "emptyPayload": { "type": ["object", "null"], "additionalProperties": true },
+
+    "taskAssignPayload": {
+      "type": "object",
+      "required": ["component", "spec", "timeoutSeconds"],
+      "properties": {
+        "component": { "$ref": "#/$defs/wsRuntimeType" },
+        "timeoutSeconds": { "type": "integer", "minimum": 1 },
+        "spec": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "pullSpec": {
+      "type": "object",
+      "required": ["source", "repoId", "targetUri"],
+      "properties": {
+        "source": { "type": "string", "enum": ["hf", "modelscope"] },
+        "repoId": { "type": "string" },
+        "revision": { "type": ["string", "null"] },
+        "files": { "type": ["array", "null"], "items": { "type": "string" } },
+        "targetUri": { "type": "string" },
+        "secretRef": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "compressSpec": {
+      "type": "object",
+      "required": ["sourceUri", "method", "targetQuant", "outputUri"],
+      "properties": {
+        "sourceUri": { "type": "string" },
+        "method": { "type": "string", "enum": ["awq", "gptq", "prune", "distill"] },
+        "targetQuant": { "type": "string", "enum": ["int4", "int8", "fp16"] },
+        "calibrationUri": { "type": ["string", "null"] },
+        "outputUri": { "type": "string" },
+        "config": { "type": ["object", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "trainSpec": {
+      "type": "object",
+      "required": ["baseModelUri", "datasetUri", "method", "outputUri"],
+      "properties": {
+        "baseModelUri": { "type": "string" },
+        "datasetUri": { "type": "string" },
+        "method": { "type": "string", "enum": ["lora", "qlora", "full", "dpo"] },
+        "hyperparams": { "type": ["object", "null"] },
+        "outputUri": { "type": "string" },
+        "resumeFrom": { "type": ["string", "null"] },
+        "tensorParallel": { "type": ["integer", "null"] },
+        "gpuCount": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "serveSpec": {
+      "type": "object",
+      "required": ["modelUri", "engine", "port"],
+      "properties": {
+        "modelUri": { "type": "string" },
+        "engine": { "type": "string", "enum": ["vllm", "tgi", "ollama"] },
+        "tensorParallel": { "type": ["integer", "null"] },
+        "maxModelLen": { "type": ["integer", "null"] },
+        "gpuMemoryUtil": { "type": ["number", "null"] },
+        "port": { "type": "integer", "minimum": 1, "maximum": 65535 },
+        "replicas": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "taskAckPayload": {
+      "type": "object",
+      "required": ["accepted"],
+      "properties": {
+        "accepted": { "type": "boolean" },
+        "reason": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "taskProgressPayload": {
+      "type": "object",
+      "required": ["phase", "progress"],
+      "properties": {
+        "phase": { "type": "string" },
+        "progress": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "step": { "type": ["integer", "null"] },
+        "totalSteps": { "type": ["integer", "null"] },
+        "metrics": { "type": ["object", "null"] },
+        "etaSeconds": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "taskLogPayload": {
+      "type": "object",
+      "required": ["level", "message"],
+      "properties": {
+        "level": { "type": "string", "enum": ["DEBUG", "INFO", "WARN", "ERROR"] },
+        "message": { "type": "string" },
+        "seq": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "taskResultPayload": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "type": "string", "enum": ["succeeded", "failed", "cancelled"] },
+        "outputUri": { "type": ["string", "null"] },
+        "checksum": { "type": ["string", "null"] },
+        "sizeBytes": { "type": ["integer", "null"] },
+        "metrics": { "type": ["object", "null"] },
+        "durationMs": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "taskErrorPayload": { "$ref": "#/$defs/errorInfo" },
+    "taskCancelPayload": {
+      "type": "object",
+      "required": ["reason"],
+      "properties": { "reason": { "type": "string" } },
+      "additionalProperties": false
+    },
+    "configUpdatePayload": {
+      "type": "object",
+      "required": ["params"],
+      "properties": { "params": { "type": "object" } },
+      "additionalProperties": false
+    }
+  },
+
+  "oneOf": [
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "AUTH" }, "payload": { "$ref": "#/$defs/authPayload" } }, "required": ["payload"] } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "AUTH_ACK" }, "payload": { "$ref": "#/$defs/authAckPayload" } }, "required": ["payload"] } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "NODE_REGISTER" }, "payload": { "$ref": "#/$defs/nodeRegisterPayload" } }, "required": ["payload"] } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "NODE_STATUS" }, "payload": { "$ref": "#/$defs/nodeStatusPayload" } }, "required": ["payload"] } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "PING" }, "payload": { "$ref": "#/$defs/emptyPayload" } } } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "PONG" }, "payload": { "$ref": "#/$defs/emptyPayload" } } } ] },
+    {
+      "allOf": [
+        { "$ref": "#/$defs/envelope" },
+        { "properties": { "type": { "const": "TASK_ASSIGN" }, "payload": { "$ref": "#/$defs/taskAssignPayload" } }, "required": ["payload"] },
+        {
+          "if": { "properties": { "payload": { "properties": { "component": { "const": "model-puller" } } } } },
+          "then": { "properties": { "payload": { "properties": { "spec": { "$ref": "#/$defs/pullSpec" } } } } },
+          "else": {
+            "if": { "properties": { "payload": { "properties": { "component": { "const": "model-compressor" } } } } },
+            "then": { "properties": { "payload": { "properties": { "spec": { "$ref": "#/$defs/compressSpec" } } } } },
+            "else": {
+              "if": { "properties": { "payload": { "properties": { "component": { "const": "model-trainer" } } } } },
+              "then": { "properties": { "payload": { "properties": { "spec": { "$ref": "#/$defs/trainSpec" } } } } },
+              "else": { "properties": { "payload": { "properties": { "spec": { "$ref": "#/$defs/serveSpec" } } } } }
+            }
+          }
+        }
+      ]
+    },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_ACK" }, "payload": { "$ref": "#/$defs/taskAckPayload" } }, "required": ["payload"] } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_PROGRESS" }, "payload": { "$ref": "#/$defs/taskProgressPayload" } }, "required": ["payload"] } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_LOG" }, "payload": { "$ref": "#/$defs/taskLogPayload" } }, "required": ["payload"] } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_RESULT" }, "payload": { "$ref": "#/$defs/taskResultPayload" } }, "required": ["payload"] } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_ERROR" }, "payload": { "$ref": "#/$defs/taskErrorPayload" } }, "required": ["payload"] } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_CANCEL" }, "payload": { "$ref": "#/$defs/taskCancelPayload" } }, "required": ["payload"] } ] },
+    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "CONFIG_UPDATE" }, "payload": { "$ref": "#/$defs/configUpdatePayload" } }, "required": ["payload"] } ] }
+  ]
+}
