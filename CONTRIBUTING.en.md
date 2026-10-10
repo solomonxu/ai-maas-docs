@@ -31,6 +31,12 @@ Thanks for your interest in AI MaaS. The project is in **M0 (under development)*
 - Frontend: Vue 3 + TypeScript; **no third-party UI library** — use the in-house `components/common/*`.
 - Quality gates: unit tests + architecture guard (ArchUnit) + frontend type-check/build + i18n locale validation (see the code repo conventions).
 
+## Dev Log publishing convention
+
+- **Prepare on schedule**: every day at 23:00 a scheduled job auto-generates a **draft** (Chinese + English, de-duplicated and redacted) under `docs/dev-log/` — **no auto-commit, no push**.
+- **Push on confirmation**: after a maintainer **reviews and confirms**, the draft is **committed and pushed directly to `main`** (kept clean; **no PR**).
+- **Redaction red lines**: internal IPs/domains, credentials/tokens, private keys, customer info — any hit **aborts** the run.
+
 ## License
 
 By contributing, you agree to release under this repo's [Apache-2.0](./LICENSE); the code repository follows its own license (MIT).

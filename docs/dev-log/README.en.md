@@ -4,6 +4,8 @@
 
 > Auto-generated from git commits (offline glossary translation; redacted). Newest first.
 
+> Drafts are prepared by a scheduled job; a maintainer reviews, then commits **directly to main** (no PR).
+
 | Date | Link |
 |---|---|
 | 2026-10-10 | [2026-10-10](./2026-10-10.en.md) |
