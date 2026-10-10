@@ -1,6 +1,8 @@
 # Dev Log (English)
 
-> Daily development notes (curated key points; generated from git commits with redaction). Newest first.
+[简体中文](./README.md) | [English](./README.en.md)
+
+> Auto-generated from git commits (offline glossary translation; redacted). Newest first.
 
 | Date | Link |
 |---|---|
@@ -15,4 +17,4 @@
 | 2026-10-02 | [2026-10-02](./2026-10-02.en.md) |
 | 2026-10-01 | [2026-10-01](./2026-10-01.en.md) |
 
-Author: 清如许. Chinese: [README.md](./README.md).
+Author: 清如许.
