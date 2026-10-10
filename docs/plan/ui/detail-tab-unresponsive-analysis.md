@@ -108,7 +108,7 @@
 - **P3**：`DatasetDetailView.vue` 首屏 `loadVersions` 与 `loadImports` 改 `Promise.all` 并行。
 - **P4**：`DetailTabs.vue` 激活项滚动由 `scrollIntoView` 改为仅滚动 `.detail-tabs__track`。
 - **验证**：`npm run typecheck`、`i18n:audit`（18 语种）、容器 `npm run build` 均通过；Playwright 断言全绿（详见提交信息）。
-- **遗留（后续）**：`TrainingView` 手工 query 逻辑可迁移到 `useQueryState`。
+- **已完成（后续）**：`TrainingView` 手工 query 逻辑迁移到 `useQueryState`（提交 `316cb4d1`）。
 
 ## 九、P2 后端异步化实施记录（已完成 A+C，提交 `ebdd54e3`）
 - **A 校验异步**：`dataset-service` 新增 `AsyncConfig`（`@EnableAsync` + 有界 `ThreadPoolTaskExecutor` + 租户 `TaskDecorator`）与 `DatasetValidationRunner`；
