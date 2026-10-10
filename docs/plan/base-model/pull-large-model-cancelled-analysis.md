@@ -35,3 +35,18 @@
 ## 四、仍可优化（后续）
 - 真正的暂停/取消需确认 puller 立即停止（watchdog 失败时未下发 cancel，本次放大了浪费）。
 - 校验/上传若极大文件耗时 > 看门狗 TTL，仍依赖 C 的保活；可考虑按“阶段+活动”综合判定。
+
+## 五、取消/失败语义与恢复入口（提交 `5be050e0`）
+**原则**：`CANCELLED` 是**用户主动**动作，后台进程无权置取消；`FAILED` 可重试；`ABANDONED` 为重试耗尽/被取代的终态。
+
+- **后台不再产生 CANCELLED**：
+  - `TaskResultHandler` 收到 puller 的 cancelled 上报（非用户取消：用户取消已即时置 CANCELLED，puller 迟到命中终态早退）→ 置 **FAILED**（“puller stopped unexpectedly”，可重试）。
+  - `retry()` 的重复活动任务 supersede：由 `CANCEL` 改为 **FAILED→ABANDONED**（终态、不复用取消语义、不自动重试）。
+- **终态恢复（B1，符合 ADR-0013 内核）**：内核强制“终态无出边 + CANCELLED/ABANDONED `retriable=false`”，故**不**允许同任务回溯。恢复入口 = 对 **cancelled/abandoned**「重新运行」**新建任务**（复用 staging/已存在对象续传）；`failed` 仍为同任务「重试」。
+- **前端**：`pullLifecycle.canRepoPull = cancelled || abandoned`；列表/详情/基模列表/基模详情统一「重新运行」入口。取消仅出现在用户可点动作。
+
+> 语义总结（拉取任务）：
+> - 用户取消 → `CANCELLED`（终态，用户可「重新运行」新任务恢复）
+> - 看门狗无进展 / 下载失败 / puller 异常停止 → `FAILED`（可自动/手动重试同一任务）
+> - 重试耗尽或被取代 → `ABANDONED`（终态，用户可「重新运行」新任务恢复）
+
