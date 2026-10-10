@@ -1,0 +1,7 @@
+# automation noise
+cron.log
+__pycache__/
+*.py[cod]
+*.swp
+*.swo
+.DS_Store
