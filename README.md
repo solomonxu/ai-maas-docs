@@ -1,97 +1,107 @@
 # AI MaaS — 垂直行业私有化微调平台
 
 > 基座无关的中间层 · 私有化部署 · COLA DDD 微服务架构
+> 状态：**🚧 M0（开发中，非生产就绪）** ｜ 许可：[Apache-2.0](./LICENSE)
 
-## 项目定位
+面向金融/法律等垂直行业，提供**私有化部署**的大模型**微调与推理**平台。
 
-面向金融/法律等垂直行业，提供**私有化部署的大模型微调与推理平台**。  
-核心差异化：**基座无关**——可替换 Qwen / Llama / DeepSeek 等任意开源模型，不改业务代码。
+## 为什么是 AI MaaS
+
+- **基座无关（Base-model agnostic）**：可替换 Qwen / Llama / DeepSeek 等任意开源模型，**只需改配置、不改业务代码**。
+- **私有化部署（Private/Offline）**：数据不出域，支持内网/离线环境，面向合规敏感场景。
 
 ## 架构概览
-[Vue 3 前端]
 
-↓ HTTP/WS
+```
+            ┌──────────────────────────────┐
+            │        Vue 3 前端 (SPA)        │
+            └───────────────┬──────────────┘
+                     HTTP / SSE / WS
+                            │
+                 ┌──────────▼───────────┐
+                 │ Spring Cloud Gateway │
+                 └──────────┬───────────┘
+                    REST │            │ REST/WS
+        ┌────────────────▼──┐   ┌─────▼──────────────────────────┐
+        │  管理面微服务       │   │        runtime-hub              │
+        │ (Java · COLA DDD)  │   │  （WS 统一控制面 / 注册表）      │
+        │ model / dataset /  │   └─────┬──────────────────────────┘
+        │ training / artifact│         │ WebSocket
+        │ serving / eval /   │   ┌─────▼──────────────────────────┐
+        │ compress / ...      │   │  Python 运行时                  │
+        └─────────┬──────────┘   │  puller / trainer / server /    │
+                  │              │  scanner / compressor / ...     │
+                  │              └─────┬──────────────────────────┘
+                  └──────────┬─────────┘
+                 ┌───────────▼───────────────────────────────┐
+                 │ PostgreSQL · MinIO · Redis · RocketMQ · Nacos │
+                 └────────────────────────────────────────────┘
+```
 
-[Spring Cloud Gateway]
-
-↓
-
-[base-model] [dataset] [training-orchestration] [artifact]  ← Java 微服务 (COLA DDD)
-
-↑                              ↓ WS 控制面
-
-[runtime-hub] ← WebSocket → [model-puller / model-trainer / model-server]  ← Python 运行时
-
-↓
-
-[MinIO / PostgreSQL / Redis / RocketMQ]
-
-纯文本
 ## 技术栈
 
 | 层 | 技术 |
 |---|---|
-| 后端 | Java 17 + Spring Boot 3.x + Spring Cloud Alibaba + COLA DDD |
-| 运行时 | Python 3.11 + PyTorch + vLLM + Transformers |
-| 前端 | Vue 3 + TypeScript + Element Plus |
-| 数据库 | PostgreSQL（database-per-service） |
-| 对象存储 | MinIO |
-| 消息队列 | RocketMQ |
-| 注册配置 | Nacos |
-| 部署 | Docker Compose / Helm / K8s |
+| 后端 | Java 17 · Spring Boot 3.x · Spring Cloud Alibaba · **COLA DDD** |
+| 运行时 | **Python 3.12**（CPU）· PyTorch · Transformers · vLLM · PEFT |
+| 前端 | Vue 3 · TypeScript · Pinia · Vue Router · **自研组件（无第三方 UI 库）** |
+| 存储 | PostgreSQL（database-per-service）· MinIO |
+| 消息/注册 | RocketMQ · Nacos · Redis |
+| 部署 | Docker Compose · Helm / K8s（规划中） |
+| 契约 | WebSocket 消息 Schema · ADR · 引擎/配方清单 |
 
-## 核心设计亮点
+## 核心特性
 
-### 1. 基座无关中间层
-- 统一模型描述（tokenizer / chat_template / 量化格式 / 上下文长度）
-- 推理后端适配层（vLLM / TGI / Ollama），对外统一 OpenAI 兼容协议
-- 替换基座只需改配置，不修改业务服务
+- **统一模型抽象**：tokenizer / chat_template / 量化格式 / 上下文长度 的统一描述。
+- **WS 统一控制面**：Java ↔ Python 运行时单连接双向（下发任务 + 回收状态/进度/日志），心跳/离线检测/指数退避重连，注册表支持多副本路由。
+- **端到端链路**：模型拉取 → 收尾扫描（安全/结构） → 微调（CPU/GPU） → 评测 → 量化/压缩 → 推理服务。
+- **COLA DDD 分层**：`domain` 零框架依赖，`adapter → app → domain ← infrastructure`。
+- **M1+ 治理（规划）**：Model Registry · Eval Gate · Guardrail · Inference Gateway · RAG/Knowledge · Prompt Registry。
 
-### 2. WebSocket 统一控制面
-- Java ↔ Python 运行时统一通过 WS 长连接通信
-- 单连接双向：下发任务 + 回收状态/进度/日志
-- 心跳 30s / 离线 90s 检测 / 指数退避重连
-- 连接注册表（Redis）解决多副本路由
+## 快速开始
 
-### 3. COLA DDD 分层
-每个微服务按 adapter / app / domain / infrastructure 四层分包：
-- **domain 层**：纯业务规则，零框架依赖
-- **app 层**：应用编排，事务边界
-- **adapter 层**：Controller / WS Endpoint / MQ Listener
-- **infrastructure 层**：MyBatis-Plus / Redis / MinIO 实现
+> 需要 Docker 与 Docker Compose。默认使用本地主机端口；实际端口以 `.env` 为准。
 
-### 4. 生产化治理（M2 目标）
-- Model Registry + Eval Gate + Guardrail Service
-- Inference Gateway（路由/限流/缓存/审计）
-- Knowledge Service（RAG）+ Prompt Registry
-- Experiment Tracking + Data Lineage
+```bash
+git clone <your-fork-or-mirror-url> ai-maas
+cd ai-maas/deploy/docker-compose
+cp .env.example .env
+docker compose up -d --build
+```
 
-## 三阶段路线
+启动后访问网关入口：`http://localhost:18080`（以 `.env` 中 `MANAGEMENT_*`/端口映射为准）。
+
+更多：见 [快速开始](./docs/quickstart.md) 与 [部署文档](./docs/deployment.md)。
+
+## 文档导航
+
+| 文档 | 说明 |
+|---|---|
+| [docs/overview.md](./docs/overview.md) | 项目概述与定位 |
+| [docs/architecture.md](./docs/architecture.md) | 架构详解（分层/控制面/数据） |
+| [docs/quickstart.md](./docs/quickstart.md) | 快速开始 |
+| [docs/development.md](./docs/development.md) | 开发指南与规范 |
+| [docs/deployment.md](./docs/deployment.md) | 部署（Compose / GPU / 离线） |
+| [docs/dev-log/](./docs/dev-log/) | 每日开发日志 |
+| [PLAN.md](./PLAN.md) | 总体规划与路线图 |
+| [docs/decisions/](./docs/decisions/) | 架构决策记录（ADR，逐步补充） |
+
+## 路线图
 
 | 阶段 | 目标 | 周期 |
 |---|---|---|
-| M0 验证期 | 端到端手工打通最小链路 | 0–2 月 |
-| M1 MVP | 产品化最小闭环，可交付试点客户 | 2–5 月 |
+| **M0** 验证期 | 端到端打通最小链路（开发中） | 0–2 月 |
+| M1 MVP | 产品化最小闭环，可交付试点 | 2–5 月 |
 | M2 产品化 | 多客户可复制，补齐治理层 | 5–9 月 |
 | M3 复制期 | 模板市场 + 数据飞轮 | 9–15 月 |
 
-## 快速开始（Docker Compose）
-bash
+## 贡献
 
-git clone https://gitee.com/solomonxu/ai-maas.git
+见 [CONTRIBUTING.md](./CONTRIBUTING.md)。安全问题请遵循 [SECURITY.md](./SECURITY.md)（勿公开披露）。
 
-cd ai-maas/deploy/docker-compose
+## 许可证与免责声明
 
-docker compose --profile default up -d
-
-访问 http://localhost:8080
-
-> 完整文档见 [ai-maas-docs](https://github.com/solomonxu/ai-maas-docs)
-
-## 项目状态
-
-🚧 开发中（M0 阶段） — 欢迎 Issue 与讨论
-
-## 许可
-
-本项目仅供学习参考，商用需自行评估基座模型 License。
+- 本**文档仓**采用 [Apache-2.0](./LICENSE)；代码仓遵循其自身许可（MIT）。
+- 项目处于 **M0 开发中**，按 **“AS IS”** 提供，**不承诺生产可用性**；使用风险自负。
+- 集成第三方**基座模型**时，请自行评估并遵守相应模型许可证与合规要求。
+- 文中第三方名称/商标仅用于说明与兼容性描述，不构成背书。
