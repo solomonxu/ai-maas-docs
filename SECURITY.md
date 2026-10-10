@@ -1,5 +1,7 @@
 # 安全策略（Security Policy）
 
+[简体中文](./SECURITY.md) | [English](./SECURITY.en.md)
+
 ## 支持范围
 
 AI MaaS 目前处于 **M0（开发中）**，尚不承诺生产可用。安全修复将尽力跟进，但**不提供 SLA**。

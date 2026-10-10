@@ -1,5 +1,7 @@
 # 贡献指南（Contributing）
 
+[简体中文](./CONTRIBUTING.md) | [English](./CONTRIBUTING.en.md)
+
 感谢参与 AI MaaS。当前处于 **M0（开发中）**，欢迎 Issue、讨论与文档改进。
 
 ## 沟通
