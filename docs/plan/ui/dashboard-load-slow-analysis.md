@@ -36,3 +36,19 @@
 ## 四、通用原则
 仪表盘聚合**不应被单个慢/可选接口拖累**：慢数据用「独立加载 + 占位」，避免 `Promise.all` 全量等待；
 后端聚合类接口避免全量遍历对象存储，优先用指标/元数据 + 缓存。
+
+## 五、扩展排查（全项目「全量遍历/无缓存」隐患）与修复
+> 提交 `cec29a1f`（Gitee origin）
+
+| # | 位置 | 类型 | 处置 |
+|---|---|---|---|
+| 1 | `dataset-service StatsController.storage` | MinIO 全量递归遍历 4 桶（16.12s） | 已修（`d8e2e9ff`） |
+| 2 | 前端 `TrainingView`/`EvalView`/`ArtifactsView` 名称映射 | 每次列表刷新重复拉 200+200(+200) 行，无缓存 | **已修**：新增 `utils/lookupCache`（60s TTL + single-flight），改 `cachedLookup`；验证训练列表 size=200 请求各 1 次 |
+| 4 | 拉取任务详情实时文件列举 `listBaseModelFiles` | 轮询中每次全量递归列举 MinIO | **已修**：节流 10s |
+| 5 | base-model `SourceMetaClient.query/revisions` | 请求内直连 HF/MS，无缓存 | **已修**：TTL 缓存（成功 10min/失败 30s）；验证 source-meta 1.5s→4ms、source-refs 0.32s→4ms |
+| 3 | node-service `/nodes`、`/components` | 内存 `listAll` + 过滤/分页 | 低：已有短 TTL 缓存；数量增长后改 DB 级分页 |
+| 6 | admin `/admin/usage`、`/admin/overview` | 日期范围查询 / `count(*)` | 低：有界，无需处理 |
+
+**已做对的**：node-service `listAll` TTL 缓存 + 批量查询避免 N+1、列表装配不触发 registry 查询；
+eval/artifact 列表已 `selectPage` 分页；estimate 已 TTL 缓存；文件树浏览已用非递归 `listLevel` 懒加载。
+
