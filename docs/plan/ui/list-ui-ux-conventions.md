@@ -95,3 +95,37 @@
 - 页面：`maas-web/src/views/base-models/BaseModelsView.vue`
 - 共享：`components/common/{DataTable,StatusChip,PullProgress}.vue`、`utils/assetStatus.ts`、`styles/controls.css`
 - 端到端筛选示例：base-model 列表的 `source` 过滤（前端传参 + 后端仓储 `where`）
+
+---
+
+# 附：落地补充（本轮推广已验证）
+
+## 已验证页面清单
+| 页面 | 文件 | 关键改动 | 提交 |
+|---|---|---|---|
+| 基座模型列表 | `maas-web/src/views/base-models/BaseModelsView.vue` | 去系列/档位列并入副行、来源仅图标、最近拉取拓宽(去状态图标、3px、单行+气泡)、操作语义化、来源端到端筛选、健康栏基模计数 | `f2d33aeb`/`70cdf141`/`23a04450`/`974242a3`/`d18091dc`/`472c94c2` |
+| 数据集列表 | `maas-web/src/views/datasets/DatasetsView.vue` | 精简列、来源短徽标、进度列加宽+3px、`dataType→modality`/`source→origin` 端到端筛选、列宽微调 | `6514ff59` |
+| 训练任务列表 | `maas-web/src/views/training/TrainingView.vue` | 列居中、进度 4px、操作图标(保留 ⋯ 收纳多动作)、工具条分组、创建时间精简 | `c5d47db8` |
+| 推理服务列表 | `maas-web/src/views/inference/InferenceView.vue` | 列居中、去冗余下拉改平铺操作、工具条分组、创建时间精简 | `282dffb8` |
+| 模型制品列表 | `maas-web/src/views/artifacts/ArtifactsView.vue` | 列居中、去冗余下拉、工具条分组、创建时间精简 | `42b1c839` |
+| 模型评测列表 | `maas-web/src/views/eval/EvalView.vue` | 去类型列、列居中、操作图标、工具条分组、创建时间精简（无数据，结构冒烟） | `19ae03c9` |
+| 压缩任务列表 | `maas-web/src/views/compress/CompressView.vue` | 列居中、进度 4px、操作图标、工具条分组、创建时间精简（无数据，结构冒烟） | `635a7fd2` |
+| GPU 分配列表 | `maas-web/src/views/gpu/GpuAllocationsView.vue` | 列居中、操作图标、工具条分组、创建时间精简 | `bc13e4b9` |
+| 运行组件列表 | `maas-web/src/views/ComponentsView.vue` | 列居中、角色聚合视图居中、操作图标、工具条分组、更新时间精简 | `7bd44fa0` |
+| 数据集版本列表 | `maas-web/src/views/datasets/DatasetDetailView.vue` | 版本列居中、导入时间精简、操作图标 | `f343250e` |
+| GPU 事件列表 | `maas-web/src/views/gpu/GpuEventsView.vue` | 列居中、工具条分组、时间精简 | `a83097ab` |
+| 容器镜像列表 | `maas-web/src/views/images/ImagesView.vue` | 四 Tab 统一：列居中、进度 4px、操作图标、工具条分组、时间精简 | `0f288208` |
+
+## 统一实现约定（本轮固化）
+- **时间精简**：`shortDateTime()` → `YYYY-MM-DD HH:MM:SS`（去 `T`/毫秒/时区）；列宽 140、居中、12px、`--text-secondary`、`tabular-nums`。
+- **进度细化**：`ProgressBar` 列表态高度 **4px**；紧凑 `PullProgress` **3px**、区块居中、其下文字与条左端对齐、`nowrap`+溢出省略+`title` 气泡。
+- **全表字号**：`:deep(.data-table__table tbody td){ font-size: 13px }`；次级列 12px。
+- **操作列**：固定宽、右对齐、末尾 `padding-inline-end: space-2`；文字 12px、图标 13px；语义分组 `详情(中性)|主操作|次操作|危险`；**删除冗余 ⋯ 下拉**（动作多者保留 ⋯ 收纳）。
+- **工具条**：`搜索 ‖ 分隔符 ‖ 筛选 ‖ 重置(图标)`；本地 `.toolbar-sep`。
+- **语义色**：`StatusTag/StatusChip`；来源短徽标（HF/MS/LOCAL/OSS）；状态徽标语义色。
+- **DataTable 能力**（共享）：`align`、`minWidth` 横向滚动、固定列毛玻璃、`hideBelow`。
+
+## 校验方式（每页）
+- `npm run typecheck` + `npm run i18n:audit`（18 语种）+ 容器内 `npm run build`。
+- 若改后端：`mvn -o -pl <module> -am compile -DskipTests`；重建镜像并重启（如需）。
+- Playwright 截图 + 断言（列居中/操作右对齐/筛选请求/无 pageerror）。
