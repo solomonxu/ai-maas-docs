@@ -3,7 +3,6 @@
 [简体中文](./README.md) | [English](./README.en.md)
 
 > Auto-generated from git commits (offline glossary translation; redacted). Newest first.
-
 > Drafts are prepared by a scheduled job; a maintainer reviews, then commits **directly to main** (no PR).
 
 | Date | Link |
