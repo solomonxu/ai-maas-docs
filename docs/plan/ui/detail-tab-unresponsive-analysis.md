@@ -1,6 +1,6 @@
 # 详情页多 Tab 卡死/转圈/无响应 —— 根因分析与修复方案
 
-> 状态：**已实施（P0–P4 前端，P2 后端异步化暂缓）** — 代码仓提交 `4e7bedda`（Gitee origin）
+> 状态：**已实施（P0–P4 前端 + P2 后端 A+C）** — 代码仓提交 `4e7bedda`（前端）、`ebdd54e3`（后端，Gitee origin）
 > 影响页面：基座模型详情、数据集详情（及同类“Tab 状态写入 URL query”的详情页）
 > 关联：`docs/plan/ui/list-ui-ux-conventions.md`
 
@@ -108,4 +108,13 @@
 - **P3**：`DatasetDetailView.vue` 首屏 `loadVersions` 与 `loadImports` 改 `Promise.all` 并行。
 - **P4**：`DetailTabs.vue` 激活项滚动由 `scrollIntoView` 改为仅滚动 `.detail-tabs__track`。
 - **验证**：`npm run typecheck`、`i18n:audit`（18 语种）、容器 `npm run build` 均通过；Playwright 断言全绿（详见提交信息）。
-- **遗留（后续）**：P2 后端慢接口异步化；`TrainingView` 手工 query 逻辑可迁移到 `useQueryState`。
+- **遗留（后续）**：`TrainingView` 手工 query 逻辑可迁移到 `useQueryState`。
+
+## 九、P2 后端异步化实施记录（已完成 A+C，提交 `ebdd54e3`）
+- **A 校验异步**：`dataset-service` 新增 `AsyncConfig`（`@EnableAsync` + 有界 `ThreadPoolTaskExecutor` + 租户 `TaskDecorator`）与 `DatasetValidationRunner`；
+  `DatasetUploadService` 的 `upload/validate` 改为「落库后提交、事务提交后异步执行校验」，请求立即返回 `validating`，前端轮询至 `available/invalid`。
+  开关 `maas.dataset.validate.async`（默认 `true`）；集成测试置 `false` 走原同步路径（因测试在未提交事务内，异步线程看不到未提交数据）。
+- **C 估算治理**：`DatasetEstimateClient` / `HfEstimateClient` / `MsEstimateClient` 增加 TTL 缓存（成功 10min、失败 30s），降低慢外部调用对 HTTP 线程的占用。
+- **验证**：`dataset-service` 31 用例、`base-model-service` 32 用例全绿；运行时 E2E：上传/重校验即时返回 `validating`→轮询至 `available`（行数=3）；
+  估算二连击缓存命中（`call2 ≤ 0.01s`）。已重建并重启 `dataset-service`/`model-service` 镜像。
+- **未做（非必需）**：B 重量方案（任务表 + worker 持久化）；如需进程重启可恢复的校验，可后续迁移到 worker 模式。
