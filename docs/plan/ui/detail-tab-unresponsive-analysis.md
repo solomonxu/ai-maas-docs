@@ -1,6 +1,6 @@
 # 详情页多 Tab 卡死/转圈/无响应 —— 根因分析与修复方案
 
-> 状态：分析完成，**待实施**（本文档仅沉淀结论与计划，暂未改代码）
+> 状态：**已实施（P0–P4 前端，P2 后端异步化暂缓）** — 代码仓提交 `4e7bedda`（Gitee origin）
 > 影响页面：基座模型详情、数据集详情（及同类“Tab 状态写入 URL query”的详情页）
 > 关联：`docs/plan/ui/list-ui-ux-conventions.md`
 
@@ -98,3 +98,14 @@
 - 列表页：`Components/Nodes/Eval/Images/Training`（确认仍按 query 恢复）。
 - 轮询：`useBaseModelDetail.ts`、`FileBrowser.vue`、`useResourceDetail.ts`、`usePullerMetrics`。
 - 首页/仪表盘、pull-tasks 等其它含 SSE 的页面（无回归）。
+
+## 八、实施记录（已完成，提交 `4e7bedda`）
+- **P0**：`router/index.ts` 新增 `meta.queryKey`（列表页 `training/eval/nodes/components/images` 置 `true`）；`MainLayout.vue` view key 改为
+  `locale + '|' + (meta.queryKey ? route.fullPath : route.path)`；`useQueryState.ts` 注释同步。
+  验证：切详情 Tab 不再重拉详情、无整页骨架、URL `?tab=` 正常；列表页深链（`/images?tab=builds`、`/training?tab=failed`）仍激活。
+- **P1**：`useBaseModelDetail.ts` 拉取兜底轮询 `setInterval(3s, 无守卫)` → `usePolling`（setTimeout 链）且 `shouldPoll = 有进行中拉取 && !SSE.connected`，`watch(stream.connected)` 触发 `sync()`；`FileBrowser.vue`/`useResourceDetail.ts`/`usePullerInfo.ts`(usePullerMetrics) 增加在途守卫。
+- **P2（仅前端）**：`api/datasets.ts`（validate 60s、upload 120s、estimate 30s）、`api/baseModels.ts`（variants/scan-summary/trigger 30s、replay 60s）、`api/filePreview.ts`（content/archive/parquet 60s、url 30s）按请求宽限超时；默认仍 15s。后端异步化（202+任务态）暂缓。
+- **P3**：`DatasetDetailView.vue` 首屏 `loadVersions` 与 `loadImports` 改 `Promise.all` 并行。
+- **P4**：`DetailTabs.vue` 激活项滚动由 `scrollIntoView` 改为仅滚动 `.detail-tabs__track`。
+- **验证**：`npm run typecheck`、`i18n:audit`（18 语种）、容器 `npm run build` 均通过；Playwright 断言全绿（详见提交信息）。
+- **遗留（后续）**：P2 后端慢接口异步化；`TrainingView` 手工 query 逻辑可迁移到 `useQueryState`。
