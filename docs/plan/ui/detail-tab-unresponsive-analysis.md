@@ -107,6 +107,8 @@
 - **P2（仅前端）**：`api/datasets.ts`（validate 60s、upload 120s、estimate 30s）、`api/baseModels.ts`（variants/scan-summary/trigger 30s、replay 60s）、`api/filePreview.ts`（content/archive/parquet 60s、url 30s）按请求宽限超时；默认仍 15s。后端异步化（202+任务态）暂缓。
 - **P3**：`DatasetDetailView.vue` 首屏 `loadVersions` 与 `loadImports` 改 `Promise.all` 并行。
 - **P4**：`DetailTabs.vue` 激活项滚动由 `scrollIntoView` 改为仅滚动 `.detail-tabs__track`。
+- **P2 后续修复（提交 `84bf7824`）**：异步校验无 SSE 事件，此前 `syncing` 且 SSE 连通时轮询/快刷被禁用，页面会停留「正在导入…」不刷新；
+  改为「`syncing` 且无进行中导入（即校验中）时始终轮询/快速刷新；导入仍以 SSE 为主、仅断线兜底」。
 - **验证**：`npm run typecheck`、`i18n:audit`（18 语种）、容器 `npm run build` 均通过；Playwright 断言全绿（详见提交信息）。
 - **已完成（后续）**：`TrainingView` 手工 query 逻辑迁移到 `useQueryState`（提交 `316cb4d1`）。
 
