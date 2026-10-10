@@ -86,6 +86,7 @@ docker compose up -d --build
 | [docs/deployment.md](./docs/deployment.md) | 部署（Compose / GPU / 离线） |
 | [docs/dev-log/](./docs/dev-log/) | 每日开发日志 |
 | [PLAN.md](./PLAN.md) | 总体规划与路线图（英文摘要见 [PLAN.en.md](./PLAN.en.md)） |
+| [docs/plan/ui/list-ui-ux-conventions.md](./docs/plan/ui/list-ui-ux-conventions.md) | 列表页 UI/UX 规范化提示词（可复用推广） |
 | [docs/decisions/](./docs/decisions/) | 架构决策记录（ADR，逐步补充） |
 
 ## 路线图

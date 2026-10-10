@@ -89,6 +89,7 @@ See [Quickstart](./docs/quickstart.en.md) and [Deployment](./docs/deployment.en.
 | [docs/DB_SCHEMA_PLAN.en.md](./docs/DB_SCHEMA_PLAN.en.md) | Database & domain model (English summary) |
 | [SECURITY.en.md](./SECURITY.en.md) | Security policy (English) |
 | [CONTRIBUTING.en.md](./CONTRIBUTING.en.md) | Contributing (English) |
+| [docs/plan/ui/list-ui-ux-conventions.md](./docs/plan/ui/list-ui-ux-conventions.md) | Reusable UI/UX conventions prompt for list pages (Chinese) |
 | [docs/decisions/](./docs/decisions/) | Architecture Decision Records (ADR) |
 
 > Most detailed documents are currently in Chinese; English translations are being added incrementally.
