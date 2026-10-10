@@ -109,6 +109,8 @@
 - **P4**：`DetailTabs.vue` 激活项滚动由 `scrollIntoView` 改为仅滚动 `.detail-tabs__track`。
 - **P2 后续修复（提交 `84bf7824`）**：异步校验无 SSE 事件，此前 `syncing` 且 SSE 连通时轮询/快刷被禁用，页面会停留「正在导入…」不刷新；
   改为「`syncing` 且无进行中导入（即校验中）时始终轮询/快速刷新；导入仍以 SSE 为主、仅断线兜底」。
+- **P2 后续修复（提交 `75d6eef3`）**：数据集列表行内校验后手动 `fetchList` 不重排自动刷新定时器，快刷可能被延迟到默认 10s；
+  `onValidate` 后调用 `auto.reschedule()`，验证列表 3s 内快刷（实测 gap≈3022ms）。
 - **验证**：`npm run typecheck`、`i18n:audit`（18 语种）、容器 `npm run build` 均通过；Playwright 断言全绿（详见提交信息）。
 - **已完成（后续）**：`TrainingView` 手工 query 逻辑迁移到 `useQueryState`（提交 `316cb4d1`）。
 
