@@ -1,5 +1,7 @@
 # AI MaaS 平台 — 数据库与领域模型规划 (DB & Domain Model)
 
+[简体中文](./DB_SCHEMA_PLAN.md) | [English](./DB_SCHEMA_PLAN.en.md)
+
 > 版本: v0.3（增量修订稿） 日期: 2026-09-25
 > 范围: 仅数据库 schema 与领域模型，不含业务代码。
 > 对齐: `PLAN.md` v2.0（Java/COLA + Python 运行时 + WebSocket 控制面）。

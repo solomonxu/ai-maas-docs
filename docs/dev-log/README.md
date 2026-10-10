@@ -1,5 +1,7 @@
 # 开发日志（Dev Log）
 
+[简体中文](./README.md) | [English](./README.en.md)
+
 > 按日记录开发进展（据 git 提交去重、脱敏生成）。最新在上。
 
 | 日期 | 链接 |

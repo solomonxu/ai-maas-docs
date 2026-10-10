@@ -1,5 +1,7 @@
 # AI MaaS 垂直行业私有化微调平台 — 项目规划 (PLAN)
 
+[简体中文](./PLAN.md) | [English](./PLAN.en.md)
+
 > 版本: v2.0（规划稿） 日期: 2026-09-25
 > 定位: 私有化 / 混合部署的垂类模型微调与推理平台，做「基座无关的中间层」。
 > 技术主线: Java 17/21 + Spring Boot 3.x + Spring Cloud Alibaba + COLA DDD + Vue 3 +
