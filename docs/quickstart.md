@@ -1,5 +1,7 @@
 # 快速开始（Quickstart）
 
+[简体中文](./quickstart.md) | [English](./quickstart.en.md)
+
 > 前置：Docker 20+ 与 Docker Compose v2。首次构建耗时较长（镜像较多）。
 
 ## 1. 获取代码

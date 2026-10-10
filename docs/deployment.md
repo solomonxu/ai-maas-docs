@@ -1,5 +1,7 @@
 # 部署文档（Deployment）
 
+[简体中文](./deployment.md) | [English](./deployment.en.md)
+
 > 当前聚焦 Docker Compose；Helm/K8s/离线为规划中（逐步补充）。
 
 ## 部署形态

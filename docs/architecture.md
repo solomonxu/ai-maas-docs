@@ -1,5 +1,7 @@
 # 架构详解（Architecture）
 
+[简体中文](./architecture.md) | [English](./architecture.en.md)
+
 > M0 阶段架构，可能随迭代调整。
 
 ## 总览

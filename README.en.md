@@ -73,17 +73,17 @@ docker compose up -d --build
 
 Then open the gateway entry point: `http://localhost:18080` (see `MANAGEMENT_*`/port mappings in `.env`).
 
-See [Quickstart](./docs/quickstart.md) and [Deployment](./docs/deployment.md) for details.
+See [Quickstart](./docs/quickstart.en.md) and [Deployment](./docs/deployment.en.md) for details.
 
 ## Documentation
 
 | Doc | Description |
 |---|---|
-| [docs/overview.md](./docs/overview.md) | Project overview and positioning |
-| [docs/architecture.md](./docs/architecture.md) | Architecture (layers, control plane, data) |
-| [docs/quickstart.md](./docs/quickstart.md) | Quickstart |
-| [docs/development.md](./docs/development.md) | Development guide and conventions |
-| [docs/deployment.md](./docs/deployment.md) | Deployment (Compose / GPU / offline) |
+| [docs/overview.en.md](./docs/overview.en.md) | Project overview and positioning |
+| [docs/architecture.en.md](./docs/architecture.en.md) | Architecture (layers, control plane, data) |
+| [docs/quickstart.en.md](./docs/quickstart.en.md) | Quickstart |
+| [docs/development.en.md](./docs/development.en.md) | Development guide and conventions |
+| [docs/deployment.en.md](./docs/deployment.en.md) | Deployment (Compose / GPU / offline) |
 | [docs/dev-log/](./docs/dev-log/) | Daily development log |
 | [PLAN.md](./PLAN.md) | Master plan and roadmap |
 | [docs/decisions/](./docs/decisions/) | Architecture Decision Records (ADR) |

@@ -1,5 +1,7 @@
 # 开发指南（Development）
 
+[简体中文](./development.md) | [English](./development.en.md)
+
 > 本仓为**纯文档仓**；代码在私有主仓开发。以下为通用工程规范摘要。
 
 ## 技术栈
