@@ -1,9 +1,9 @@
-# Dev Log (English)
+# Dev Log
 
 [简体中文](./README.md) | [English](./README.en.md)
 
-> Auto-generated from git commits (offline glossary translation; redacted). Newest first.
-> Drafts are prepared by a scheduled job; a maintainer reviews, then commits **directly to main** (no PR).
+> Daily development progress, derived from git commits (deduplicated and redacted). Newest first.
+> A scheduled job drafts each entry; after maintainer review it is committed **directly to main** (no pull request).
 
 | Date | Link |
 |---|---|
@@ -22,4 +22,4 @@
 | 2026-10-02 | [2026-10-02](./2026-10-02.en.md) |
 | 2026-10-01 | [2026-10-01](./2026-10-01.en.md) |
 
-Author: 清如许.
+Generated daily by an internal tool (redacted; avoid internal IPs, credentials and tokens).
