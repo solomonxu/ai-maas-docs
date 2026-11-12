@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="300" viewBox="0 0 920 300">
+<title>Wall clock vs billable duration</title>
+<desc>Wall clock 2 hours 1 minute, billable duration 2 minutes 4 seconds.</desc>
+<rect x="0.00" y="0.00" width="920.00" height="300.00" fill="#ffffff" />
+<text x="48.00" y="42.00" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" fill="#0f172a" text-anchor="start" font-weight="600">Wall clock vs billable duration</text>
+<text x="48.00" y="68.00" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" fill="#64748b" text-anchor="start" font-weight="normal">Queueing and manual wait time should not consume GPU budget</text>
+<text x="48.00" y="110.00" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" fill="#475569" text-anchor="start" font-weight="600">Wall clock</text>
+<rect x="48.00" y="122.00" width="824.00" height="28.00" fill="#e2e8f0" rx="6"/>
+<text x="62.00" y="141.00" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" fill="#475569" text-anchor="start" font-weight="normal">2h 1m</text>
+<text x="48.00" y="178.00" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" fill="#475569" text-anchor="start" font-weight="600">Billable execution</text>
+<rect x="48.00" y="190.00" width="824.00" height="28.00" fill="#e2e8f0" rx="6"/>
+<rect x="48.00" y="190.00" width="14.07" height="28.00" fill="#2563eb" rx="6"/>
+<text x="72.00" y="209.00" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" fill="#1d4ed8" text-anchor="start" font-weight="600">2m 4s</text>
+<text x="48.00" y="252.00" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" fill="#334155" text-anchor="start" font-weight="normal">Cost basis: sum of effective stage execution time; queueing and manual wait are not billable</text>
+<text x="48.00" y="276.00" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" fill="#334155" text-anchor="start" font-weight="normal">Illustrative: same run corrected from 15.2 to 0.26</text>
+</svg>
