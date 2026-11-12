@@ -8,7 +8,7 @@
 
 > **OpenMaas 项目状态**
 >
-> OpenMaas 是面向私有化部署的模型训推与推理平台，当前处于开源收尾阶段。项目文档已开放：[OpenMaas Docs](https://github.com/solomonxu/ai-maas-docs)；代码仓库即将开放。本文聚焦其中的 `pipeline-service` 训推流水线模块，不覆盖平台全部能力。
+> OpenMaas 是面向私有化部署的模型训推与推理平台，当前处于开源收尾阶段。项目文档已开放：[Gitee](https://gitee.com/solomonxu/ai-maas-docs)（国内）/ [GitHub](https://github.com/solomonxu/ai-maas-docs)（全球）；代码仓库即将开放。本文聚焦其中的 `pipeline-service` 训推流水线模块，不覆盖平台全部能力。
 
 ## 摘要
 
@@ -42,7 +42,7 @@ OpenMaas 是面向私有化部署的模型训推与推理平台，已经提供�
 
 流水线模块的目标不是重新实现训练、推理和评测能力，而是把已有的模型、数据、训练、制品、推理和评测服务组织成可交付的运行；它负责运行编排、状态收口和恢复，具体职责边界见 2.1 节。
 
-项目文档：[OpenMaas Docs](https://github.com/solomonxu/ai-maas-docs)
+项目文档：[Gitee](https://gitee.com/solomonxu/ai-maas-docs)（国内）/ [GitHub](https://github.com/solomonxu/ai-maas-docs)（全球）
 
 **术语约定：**
 
@@ -555,10 +555,10 @@ sequenceDiagram
 
 **继续阅读**
 
-- [本文 GitHub 版本](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/articles/pipeline-technical-article.md)
-- [OpenMaas 文档](https://github.com/solomonxu/ai-maas-docs)
-- [架构说明](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/architecture.md)
-- [快速开始](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/quickstart.md)
-- [开发日志](https://github.com/solomonxu/ai-maas-docs/tree/main/docs/dev-log)
+- 本文：[Gitee](https://gitee.com/solomonxu/ai-maas-docs/blob/main/docs/articles/pipeline-technical-article.md) / [GitHub](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/articles/pipeline-technical-article.md)
+- 文档：[Gitee](https://gitee.com/solomonxu/ai-maas-docs) / [GitHub](https://github.com/solomonxu/ai-maas-docs)
+- 架构：[Gitee](https://gitee.com/solomonxu/ai-maas-docs/blob/main/docs/architecture.md) / [GitHub](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/architecture.md)
+- 快速开始：[Gitee](https://gitee.com/solomonxu/ai-maas-docs/blob/main/docs/quickstart.md) / [GitHub](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/quickstart.md)
+- 开发日志：[Gitee](https://gitee.com/solomonxu/ai-maas-docs/tree/main/docs/dev-log) / [GitHub](https://github.com/solomonxu/ai-maas-docs/tree/main/docs/dev-log)
 
 OpenMaas 当前处于开源收尾阶段，文档已开放，代码仓库即将开放。本文中的测试数据为本地回归基线，不构成生产 SLA。

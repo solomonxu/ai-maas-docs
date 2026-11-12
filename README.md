@@ -4,6 +4,8 @@
 
 [简体中文](./README.md) | [English](./README.en.md)
 
+> GitHub: https://github.com/solomonxu/ai-maas-docs · Gitee: https://gitee.com/solomonxu/ai-maas-docs
+
 OpenMaas 是面向私有化部署的模型训推与推理平台，覆盖基座模型、数据集、训练、模型制品、推理服务、评测、模型压缩、镜像与资源治理，并通过统一的训推流水线把这些能力组织成可交付的运行。
 
 > **项目状态**：OpenMaas 目前处于开源收尾阶段，代码仓库与文档站即将开放。

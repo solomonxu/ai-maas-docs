@@ -4,6 +4,8 @@
 
 [English](./README.en.md) | [简体中文](./README.md)
 
+> GitHub: https://github.com/solomonxu/ai-maas-docs · Gitee: https://gitee.com/solomonxu/ai-maas-docs
+
 OpenMaas is a self-hosted platform for model training, inference, and evaluation. It covers base models, datasets, training, model artifacts, inference services, evaluation, model compression, image management, and resource governance, and connects these capabilities through a unified training-to-inference pipeline.
 
 > **Status:** OpenMaas is in open-source closeout. The public repository and documentation site are coming soon.

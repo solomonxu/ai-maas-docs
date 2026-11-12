@@ -8,7 +8,7 @@
 >
 > Canonical URL: [OpenMaas Documentation URL]
 >
-> OpenMaas is in open-source closeout. Documentation is available at [OpenMaas Docs](https://github.com/solomonxu/ai-maas-docs); the code repository is coming soon.
+> OpenMaas is in open-source closeout. Documentation is available at [GitHub](https://github.com/solomonxu/ai-maas-docs) (global) / [Gitee](https://gitee.com/solomonxu/ai-maas-docs) (China mirror); the code repository is coming soon.
 
 ## Abstract
 
@@ -586,8 +586,8 @@ OpenMaas is in open-source closeout. The repository will be public soon. The tes
 
 **Further reading**
 
-- [This article on GitHub](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/articles/pipeline-technical-article-en.md)
-- [OpenMaas documentation](https://github.com/solomonxu/ai-maas-docs)
-- [Architecture](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/architecture.en.md)
-- [Quickstart](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/quickstart.en.md)
-- [Dev Log](https://github.com/solomonxu/ai-maas-docs/tree/main/docs/dev-log)
+- This article: [GitHub](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/articles/pipeline-technical-article-en.md) / [Gitee](https://gitee.com/solomonxu/ai-maas-docs/blob/main/docs/articles/pipeline-technical-article-en.md)
+- Documentation: [GitHub](https://github.com/solomonxu/ai-maas-docs) / [Gitee](https://gitee.com/solomonxu/ai-maas-docs)
+- Architecture: [GitHub](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/architecture.en.md) / [Gitee](https://gitee.com/solomonxu/ai-maas-docs/blob/main/docs/architecture.en.md)
+- Quickstart: [GitHub](https://github.com/solomonxu/ai-maas-docs/blob/main/docs/quickstart.en.md) / [Gitee](https://gitee.com/solomonxu/ai-maas-docs/blob/main/docs/quickstart.en.md)
+- Dev Log: [GitHub](https://github.com/solomonxu/ai-maas-docs/tree/main/docs/dev-log) / [Gitee](https://gitee.com/solomonxu/ai-maas-docs/tree/main/docs/dev-log)
