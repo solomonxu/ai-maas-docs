@@ -79,6 +79,7 @@ Gateway: http://localhost:18080
 | [Development](./docs/development.md) | 开发规范与本地流程 |
 | [Security](./SECURITY.md) | 安全策略与报告方式 |
 | [Dev Log](./docs/dev-log/) | 每日开发记录 |
+| [技术文章](./docs/articles/) | OpenMaas 工程系列文章 |
 | [WS Schema](./docs/protocol/ws-message-schema.json) | 运行时 WebSocket 消息契约 |
 
 ## 参与贡献

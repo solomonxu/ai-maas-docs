@@ -79,6 +79,7 @@ See [Quickstart](./docs/quickstart.en.md) and [Deployment](./docs/deployment.en.
 | [Development](./docs/development.en.md) | Development conventions and local workflow |
 | [Security](./SECURITY.en.md) | Security policy and reporting |
 | [Dev Log](./docs/dev-log/) | Daily development records |
+| [Technical Articles](./docs/articles/) | Building OpenMaas series |
 | [WS Schema](./docs/protocol/ws-message-schema.json) | Runtime WebSocket message contract |
 
 ## Contributing
