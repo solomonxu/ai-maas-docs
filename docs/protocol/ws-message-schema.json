@@ -17,268 +17,2660 @@
         "TASK_ASSIGN",
         "TASK_ACK",
         "TASK_PROGRESS",
+        "TASK_SNAPSHOT",
         "TASK_LOG",
         "TASK_RESULT",
         "TASK_ERROR",
         "TASK_CANCEL",
-        "CONFIG_UPDATE"
+        "CONFIG_UPDATE",
+        "GPU_REGISTER",
+        "GPU_REPORT",
+        "GPU_REPORT_ACK",
+        "NODE_AGENT_REGISTER",
+        "NODE_AGENT_HEARTBEAT",
+        "COMPONENT_STATUS",
+        "COMPONENT_LOG",
+        "NODE_CMD",
+        "NODE_CMD_ACK",
+        "NODE_CMD_RESULT"
       ]
     },
     "wsRuntimeType": {
       "type": "string",
-      "enum": ["model-puller", "model-compressor", "model-trainer", "model-server"]
+      "description": "运行时组件类型；新增成员属兼容变更——控制面必须容忍未知值（回退 unknown），不得因未知类型丢弃整条消息。model-server 已在 0.3.0 移除；新 worker 必须使用 model-ollama-worker/model-inference-worker。",
+      "enum": [
+        "model-puller",
+        "model-compressor",
+        "model-trainer",
+        "model-ollama-worker",
+        "imagegen-worker",
+        "dataset-importer",
+        "gpu-agent",
+        "node-agent",
+        "image-builder",
+        "buildkit",
+        "image-scanner",
+        "model-scanner",
+        "dataset-scanner",
+        "dataset-transformer",
+        "dataset-indexer",
+        "inference-worker",
+        "model-inference-worker",
+        "security-clamd",
+        "model-provenance",
+        "unknown"
+      ]
     },
     "errorCode": {
       "type": "integer",
-      "enum": [1000, 4001, 4002, 4003, 4004, 4100, 4101, 4102, 4103, 4200, 4201, 4300, 4301, 4302, 4400, 4401, 4500, 5000]
+      "enum": [
+        1000,
+        4001,
+        4002,
+        4003,
+        4004,
+        4100,
+        4101,
+        4102,
+        4103,
+        4200,
+        4201,
+        4202,
+        4300,
+        4301,
+        4302,
+        4400,
+        4401,
+        4402,
+        4500,
+        4501,
+        5000
+      ]
     },
     "errorInfo": {
       "type": "object",
-      "required": ["code", "message", "retryable"],
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
       "properties": {
-        "code": { "$ref": "#/$defs/errorCode" },
-        "message": { "type": "string" },
-        "detail": { "type": ["string", "null"] },
-        "retryable": { "type": "boolean" }
+        "code": {
+          "$ref": "#/$defs/errorCode"
+        },
+        "message": {
+          "type": "string"
+        },
+        "detail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "leaseToken": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
     "envelope": {
       "type": "object",
-      "required": ["type", "msgId", "runtimeType", "nodeId", "tenantId", "timestamp"],
+      "required": [
+        "type",
+        "msgId",
+        "runtimeType",
+        "nodeId",
+        "tenantId",
+        "timestamp"
+      ],
       "properties": {
-        "type": { "$ref": "#/$defs/wsMessageType" },
-        "msgId": { "type": "string", "minLength": 1 },
-        "taskId": { "type": ["string", "null"] },
-        "runtimeType": { "$ref": "#/$defs/wsRuntimeType" },
-        "nodeId": { "type": "string", "minLength": 1 },
-        "tenantId": { "type": "integer", "minimum": 0 },
-        "timestamp": { "type": "integer", "minimum": 0 },
-        "traceId": { "type": ["string", "null"] },
-        "payload": { "type": ["object", "null"] }
+        "type": {
+          "$ref": "#/$defs/wsMessageType"
+        },
+        "msgId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "taskId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "runtimeType": {
+          "$ref": "#/$defs/wsRuntimeType"
+        },
+        "nodeId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tenantId": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "timestamp": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "traceId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "payload": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
-
     "authPayload": {
       "type": "object",
-      "required": ["token"],
-      "properties": { "token": { "type": "string", "minLength": 1 } },
+      "required": [
+        "token"
+      ],
+      "properties": {
+        "token": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
       "additionalProperties": false
     },
     "authAckPayload": {
       "type": "object",
-      "required": ["ok", "heartbeatIntervalSeconds"],
+      "required": [
+        "ok",
+        "heartbeatIntervalSeconds"
+      ],
       "properties": {
-        "ok": { "type": "boolean" },
-        "serverTime": { "type": "integer", "minimum": 0 },
-        "heartbeatIntervalSeconds": { "type": "integer", "minimum": 1 },
-        "reason": { "type": ["string", "null"] }
+        "ok": {
+          "type": "boolean"
+        },
+        "serverTime": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "heartbeatIntervalSeconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "protocolVersion": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "supportedRuntimeTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/wsRuntimeType"
+          }
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
     "gpuInfo": {
       "type": "object",
-      "required": ["gpuType", "gpuCount", "gpuMemMb"],
+      "required": [
+        "gpuType",
+        "gpuCount",
+        "gpuMemMb"
+      ],
       "properties": {
-        "gpuType": { "type": "string" },
-        "gpuCount": { "type": "integer", "minimum": 0 },
-        "gpuMemMb": { "type": "integer", "minimum": 0 }
+        "gpuType": {
+          "type": "string"
+        },
+        "gpuCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "gpuMemMb": {
+          "type": "integer",
+          "minimum": 0
+        }
       },
       "additionalProperties": true
     },
     "nodeRegisterPayload": {
       "type": "object",
-      "required": ["capabilities", "runningTasks"],
+      "required": [
+        "capabilities",
+        "runningTasks"
+      ],
       "properties": {
-        "capabilities": { "$ref": "#/$defs/gpuInfo" },
-        "version": { "type": ["string", "null"] },
+        "capabilities": {
+          "$ref": "#/$defs/gpuInfo"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bootId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "runningTasks": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["taskId", "status", "progress"],
+            "required": [
+              "taskId",
+              "status",
+              "progress"
+            ],
             "properties": {
-              "taskId": { "type": "string" },
-              "status": { "type": "string" },
-              "progress": { "type": "integer", "minimum": 0, "maximum": 100 }
+              "taskId": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "progress": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              }
             },
             "additionalProperties": true
           }
+        },
+        "runtimeCapabilities": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "sandbox": {
+              "type": "boolean"
+            },
+            "tools": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "backends": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "imageGen": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "modelFamily": {"type": "string"},
+                "loadedBaseDigest": {"type": ["string", "null"]},
+                "maxResolution": {"type": "integer", "minimum": 512, "maximum": 2048},
+                "lora": {"type": "boolean"},
+                "controlnet": {"type": "boolean"},
+                "watermark": {"type": "boolean"},
+                "nsfw": {"type": "boolean"},
+                "schedulers": {"type": "array", "items": {"type": "string"}},
+                "imageConditioning": {"type": "boolean"},
+                "maxConditionImages": {"type": "integer", "minimum": 0, "maximum": 8},
+                "conditionRoles": {"type": "array", "items": {"type": "string"}},
+                "loadedModelId": {"type": ["string", "null"]},
+                "loadedVramMb": {"type": ["integer", "null"]},
+                "peakVramMb": {"type": ["integer", "null"]},
+                "loadedAt": {"type": ["string", "null"]},
+                "lastUsedAt": {"type": ["string", "null"]},
+                "idleTtlSeconds": {"type": ["integer", "null"]}
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
     },
     "nodeStatusPayload": {
       "type": "object",
-      "required": ["status"],
+      "required": [
+        "status"
+      ],
       "properties": {
-        "status": { "type": "string", "enum": ["online", "offline", "busy"] },
-        "gpuUtil": { "type": ["number", "null"] },
-        "memUsedMb": { "type": ["integer", "null"] },
-        "load": { "type": ["number", "null"] }
+        "status": {
+          "type": "string",
+          "enum": [
+            "online",
+            "offline",
+            "busy"
+          ]
+        },
+        "gpuUtil": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "memUsedMb": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "load": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/gpuTaskUsage"
+          }
+        }
       },
       "additionalProperties": false
     },
-    "emptyPayload": { "type": ["object", "null"], "additionalProperties": true },
-
+    "gpuTaskUsage": {
+      "type": "object",
+      "required": [
+        "taskId",
+        "runtimeType",
+        "gpuIndex"
+      ],
+      "properties": {
+        "taskId": {
+          "type": "string"
+        },
+        "runtimeType": {
+          "$ref": "#/$defs/wsRuntimeType"
+        },
+        "gpuIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "vramUsedBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "lastActiveAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "gpuDeviceInfo": {
+      "type": "object",
+      "required": [
+        "deviceIndex",
+        "vendor",
+        "vramTotalBytes"
+      ],
+      "properties": {
+        "deviceIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "vendor": {
+          "type": "string"
+        },
+        "arch": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vramTotalBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "uuid": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "gpuContainerUsage": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "pids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "vramUsedBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "taskId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "runtimeType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "gpuDeviceReport": {
+      "type": "object",
+      "required": [
+        "deviceIndex",
+        "vramTotalBytes",
+        "vramUsedBytes",
+        "vramFreeBytes"
+      ],
+      "properties": {
+        "deviceIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "vramTotalBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "vramUsedBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "vramFreeBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "utilPercent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "tempC": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "powerW": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "containers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/gpuContainerUsage"
+          }
+        },
+        "uuid": { "type": ["string", "null"] },
+        "vendor": { "type": ["string", "null"] },
+        "memoryUtilization": { "type": ["number", "null"] },
+        "gpuUtilization": { "type": ["number", "null"] },
+        "temperatureCelsius": { "type": ["number", "null"] },
+        "powerWatts": { "type": ["number", "null"] },
+        "fanSpeedPct": { "type": ["number", "null"] },
+        "pcieLinkGen": { "type": ["integer", "null"] },
+        "pcieLinkWidth": { "type": ["integer", "null"] },
+        "xidErrorCount": { "type": ["integer", "null"] },
+        "health": { "type": ["string", "null"] },
+        "healthMessage": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "gpuRegisterPayload": {
+      "type": "object",
+      "required": [
+        "hostname",
+        "gpus"
+      ],
+      "properties": {
+        "hostname": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rocmVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gpus": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/gpuDeviceInfo"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "gpuReportPayload": {
+      "type": "object",
+      "required": [
+        "gpus"
+      ],
+      "properties": {
+        "hostname": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ipAddress": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gpus": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/gpuDeviceReport"
+          }
+        },
+        "seq": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "gpuReportAckPayload": {
+      "type": "object",
+      "required": [
+        "seq"
+      ],
+      "properties": {
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "emptyPayload": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true
+    },
     "taskAssignPayload": {
       "type": "object",
-      "required": ["component", "spec", "timeoutSeconds"],
+      "required": [
+        "component",
+        "spec",
+        "timeoutSeconds"
+      ],
       "properties": {
-        "component": { "$ref": "#/$defs/wsRuntimeType" },
-        "timeoutSeconds": { "type": "integer", "minimum": 1 },
-        "spec": { "type": "object" }
+        "component": {
+          "$ref": "#/$defs/wsRuntimeType"
+        },
+        "timeoutSeconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "leaseToken": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "spec": {
+          "type": "object"
+        }
       },
       "additionalProperties": false
     },
     "pullSpec": {
       "type": "object",
-      "required": ["source", "repoId", "targetUri"],
+      "required": [
+        "source",
+        "repoId",
+        "targetUri"
+      ],
       "properties": {
-        "source": { "type": "string", "enum": ["hf", "modelscope"] },
-        "repoId": { "type": "string" },
-        "revision": { "type": ["string", "null"] },
-        "files": { "type": ["array", "null"], "items": { "type": "string" } },
-        "targetUri": { "type": "string" },
-        "secretRef": { "type": ["string", "null"] }
+        "source": {
+          "type": "string",
+          "enum": [
+            "hf",
+            "modelscope",
+            "http",
+            "local",
+            "sftp"
+          ]
+        },
+        "repoId": {
+          "type": "string"
+        },
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "files": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "targetUri": {
+          "type": "string"
+        },
+        "secretRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "excludePatterns": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "endpoint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
     "compressSpec": {
       "type": "object",
-      "required": ["sourceUri", "method", "targetQuant", "outputUri"],
+      "required": [
+        "sourceUri",
+        "method",
+        "outputUri"
+      ],
       "properties": {
-        "sourceUri": { "type": "string" },
-        "method": { "type": "string", "enum": ["awq", "gptq", "prune", "distill"] },
-        "targetQuant": { "type": "string", "enum": ["int4", "int8", "fp16"] },
-        "calibrationUri": { "type": ["string", "null"] },
-        "outputUri": { "type": "string" },
-        "config": { "type": ["object", "null"] }
+        "sourceUri": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "awq",
+            "gptq",
+            "prune",
+            "distill",
+            "gguf"
+          ]
+        },
+        "targetQuant": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "int4",
+            "int8",
+            "fp16",
+            "q4_k_m",
+            null
+          ]
+        },
+        "calibrationUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "outputUri": {
+          "type": "string"
+        },
+        "sourceSizeBytes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "config": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
     "trainSpec": {
       "type": "object",
-      "required": ["baseModelUri", "datasetUri", "method", "outputUri"],
+      "required": [
+        "baseModelUri",
+        "datasetUri",
+        "method",
+        "outputUri"
+      ],
       "properties": {
-        "baseModelUri": { "type": "string" },
-        "datasetUri": { "type": "string" },
-        "method": { "type": "string", "enum": ["lora", "qlora", "full", "dpo"] },
-        "hyperparams": { "type": ["object", "null"] },
-        "outputUri": { "type": "string" },
-        "resumeFrom": { "type": ["string", "null"] },
-        "tensorParallel": { "type": ["integer", "null"] },
-        "gpuCount": { "type": ["integer", "null"] }
+        "baseModelUri": {
+          "type": "string"
+        },
+        "datasetUri": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "lora",
+            "qlora",
+            "full",
+            "dpo"
+          ]
+        },
+        "hyperparams": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "outputUri": {
+          "type": "string"
+        },
+        "resumeFrom": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tensorParallel": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "gpuCount": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "backend": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "auto",
+            "gpu",
+            "cpu",
+            "dry-run",
+            null
+          ]
+        },
+        "precision": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "bf16",
+            "fp16",
+            "fp32",
+            null
+          ]
+        }
       },
       "additionalProperties": false
     },
     "serveSpec": {
       "type": "object",
-      "required": ["modelUri", "engine", "port"],
+      "required": [
+        "modelUri",
+        "engine",
+        "port"
+      ],
       "properties": {
-        "modelUri": { "type": "string" },
-        "engine": { "type": "string", "enum": ["vllm", "tgi", "ollama"] },
-        "tensorParallel": { "type": ["integer", "null"] },
-        "maxModelLen": { "type": ["integer", "null"] },
-        "gpuMemoryUtil": { "type": ["number", "null"] },
-        "port": { "type": "integer", "minimum": 1, "maximum": 65535 },
-        "replicas": { "type": ["integer", "null"] }
+        "endpointId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "modelUri": {
+          "type": "string"
+        },
+        "baseModelUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "engine": {
+          "type": "string",
+          "enum": [
+            "vllm",
+            "tgi",
+            "ollama",
+            "transformers",
+            "llama-cpp"
+          ]
+        },
+        "backend": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "vllm",
+            "transformers",
+            "ollama",
+            "tgi",
+            "llama-cpp",
+            null
+          ]
+        },
+        "precision": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "bf16",
+            "fp16",
+            "fp32",
+            null
+          ]
+        },
+        "device": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tensorParallel": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "maxModelLen": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 128
+        },
+        "gpuMemoryUtil": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.05,
+          "maximum": 0.95
+        },
+        "gpuMemoryMb": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 512,
+          "maximum": 1048576
+        },
+        "modelChecksum": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "adapterChecksum": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "replicas": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "adapterUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loraUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loraName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "maxLoras": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "maxLoraRank": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "dryRun": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "idleTtlSeconds": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "imageGenTaskSpec": {
+      "type": "object",
+      "required": [
+        "modelId",
+        "baseModelUri",
+        "baseDigest",
+        "prompt",
+        "outputBucket"
+      ],
+      "properties": {
+        "modelId": {"type": "string", "minLength": 1, "maxLength": 128},
+        "baseModelUri": {"type": "string", "minLength": 1},
+        "baseDigest": {"type": "string", "minLength": 1, "maxLength": 128},
+        "adapterUri": {"type": ["string", "null"]},
+        "adapterDigest": {"type": ["string", "null"], "maxLength": 128},
+        "prompt": {"type": "string", "minLength": 1, "maxLength": 4000},
+        "negativePrompt": {"type": ["string", "null"], "maxLength": 4000},
+        "width": {"type": "integer", "minimum": 512, "maximum": 2048, "default": 1024},
+        "height": {"type": "integer", "minimum": 512, "maximum": 2048, "default": 1024},
+        "steps": {"type": "integer", "minimum": 1, "maximum": 100, "default": 30},
+        "cfg": {"type": "number", "minimum": 1.0, "maximum": 20.0, "default": 7.0},
+        "seed": {"type": ["integer", "null"]},
+        "scheduler": {"type": "string", "maxLength": 32, "default": "euler"},
+        "snapshotEnabled": {"type": "boolean", "default": false},
+        "snapshotIntervalSteps": {"type": ["integer", "null"], "minimum": 1, "maximum": 50},
+        "snapshotMaxCount": {"type": ["integer", "null"], "minimum": 1, "maximum": 30},
+        "outputBucket": {"type": "string", "minLength": 1, "maxLength": 63},
+        "outputPrefix": {"type": "string", "maxLength": 512, "default": ""},
+        "postprocess": {
+          "type": "object",
+          "properties": {
+            "watermark": {"type": "boolean", "default": false},
+            "nsfw": {"type": "boolean", "default": false}
+          },
+          "additionalProperties": false
+        }
+      },
+      "dependentRequired": {
+        "adapterUri": ["adapterDigest"],
+        "adapterDigest": ["adapterUri"]
       },
       "additionalProperties": false
     },
     "taskAckPayload": {
       "type": "object",
-      "required": ["accepted"],
+      "required": [
+        "accepted"
+      ],
       "properties": {
-        "accepted": { "type": "boolean" },
-        "reason": { "type": ["string", "null"] }
+        "accepted": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "leaseToken": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
     "taskProgressPayload": {
       "type": "object",
-      "required": ["phase", "progress"],
+      "required": [
+        "phase",
+        "progress"
+      ],
       "properties": {
-        "phase": { "type": "string" },
-        "progress": { "type": "integer", "minimum": 0, "maximum": 100 },
-        "step": { "type": ["integer", "null"] },
-        "totalSteps": { "type": ["integer", "null"] },
-        "metrics": { "type": ["object", "null"] },
-        "etaSeconds": { "type": ["integer", "null"] }
+        "phase": {
+          "type": "string"
+        },
+        "progress": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "step": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "totalSteps": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "metrics": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "etaSeconds": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "leaseToken": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "taskSnapshotPayload": {
+      "type": "object",
+      "required": [
+        "step",
+        "totalSteps",
+        "bucket",
+        "key"
+      ],
+      "properties": {
+        "step": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "totalSteps": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "bucket": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "checksum": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sizeBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
     "taskLogPayload": {
       "type": "object",
-      "required": ["level", "message"],
+      "required": [
+        "level",
+        "message"
+      ],
       "properties": {
-        "level": { "type": "string", "enum": ["DEBUG", "INFO", "WARN", "ERROR"] },
-        "message": { "type": "string" },
-        "seq": { "type": ["integer", "null"] }
+        "level": {
+          "type": "string",
+          "enum": [
+            "DEBUG",
+            "INFO",
+            "WARN",
+            "ERROR"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "seq": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
     "taskResultPayload": {
       "type": "object",
-      "required": ["status"],
+      "required": [
+        "status"
+      ],
       "properties": {
-        "status": { "type": "string", "enum": ["succeeded", "failed", "cancelled"] },
-        "outputUri": { "type": ["string", "null"] },
-        "checksum": { "type": ["string", "null"] },
-        "sizeBytes": { "type": ["integer", "null"] },
-        "metrics": { "type": ["object", "null"] },
-        "durationMs": { "type": ["integer", "null"] }
+        "status": {
+          "type": "string",
+          "enum": [
+            "succeeded",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "outputUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "checksum": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sizeBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "metrics": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "durationMs": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "dryRun": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "leaseToken": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
-    "taskErrorPayload": { "$ref": "#/$defs/errorInfo" },
+    "taskErrorPayload": {
+      "$ref": "#/$defs/errorInfo"
+    },
     "taskCancelPayload": {
       "type": "object",
-      "required": ["reason"],
-      "properties": { "reason": { "type": "string" } },
+      "required": [
+        "reason"
+      ],
+      "properties": {
+        "reason": {
+          "type": "string"
+        }
+      },
       "additionalProperties": false
     },
     "configUpdatePayload": {
       "type": "object",
-      "required": ["params"],
-      "properties": { "params": { "type": "object" } },
+      "required": [
+        "params"
+      ],
+      "properties": {
+        "params": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodeGpuInfo": {
+      "type": "object",
+      "required": [
+        "index",
+        "vendor",
+        "name"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "vendor": {
+          "type": "string",
+          "enum": [
+            "nvidia",
+            "amd",
+            "ascend"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "driverVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uuid": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "memoryTotalBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "memoryUsedBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "utilPercent": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tempC": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "powerW": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "rocmVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cudaVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unifiedMemory": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodeEnvPayload": {
+      "type": "object",
+      "required": [
+        "gpus"
+      ],
+      "properties": {
+        "gpus": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nodeGpuInfo"
+          }
+        },
+        "driverVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rocmVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cudaVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pythonVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "os": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kernel": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "diskTotalBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "diskFreeBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "memTotalBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "memFreeBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "dockerVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cpuCores": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "cpuModel": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "arch": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "componentPort": {
+      "type": "object",
+      "required": [
+        "name",
+        "containerPort"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "containerPort": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hostPort": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "protocol": {
+          "type": "string",
+          "enum": [
+            "tcp",
+            "udp"
+          ],
+          "default": "tcp"
+        }
+      },
+      "additionalProperties": false
+    },
+    "componentResources": {
+      "type": "object",
+      "properties": {
+        "cpu": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "memory": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "gpuCount": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "gpuIndexes": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "componentSpec": {
+      "type": "object",
+      "required": [
+        "role",
+        "name",
+        "image",
+        "tag"
+      ],
+      "properties": {
+        "componentId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "role": {
+          "$ref": "#/$defs/wsRuntimeType"
+        },
+        "name": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "replicas": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/componentPort"
+          }
+        },
+        "resources": {
+          "$ref": "#/$defs/componentResources"
+        },
+        "volumes": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "restartPolicy": {
+          "type": "string",
+          "enum": [
+            "no",
+            "on-failure",
+            "unless-stopped",
+            "always"
+          ]
+        },
+        "logLevel": {
+          "type": "string"
+        },
+        "command": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "容器命令/参数（引擎启动模板渲染结果）"
+        }
+      },
+      "additionalProperties": false
+    },
+    "componentStatus": {
+      "type": "object",
+      "required": [
+        "componentId",
+        "role",
+        "name",
+        "status"
+      ],
+      "properties": {
+        "componentId": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/$defs/wsRuntimeType"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "deploying",
+            "running",
+            "stopping",
+            "stopped",
+            "failed",
+            "upgrading",
+            "uninstalling"
+          ]
+        },
+        "containerId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "image": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tag": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ports": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/componentPort"
+          }
+        },
+        "resources": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/componentResources"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "errorMessage": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "logLevel": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodeAgentRegisterPayload": {
+      "type": "object",
+      "required": [
+        "hostname",
+        "agentVersion",
+        "env"
+      ],
+      "properties": {
+        "hostname": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "agentVersion": {
+          "type": "string"
+        },
+        "env": {
+          "$ref": "#/$defs/nodeEnvPayload"
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/componentStatus"
+          }
+        },
+        "imageDigest": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "image": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "capability": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "硬件能力快照（结构见 docs/protocol/runtime/hardware-capability.schema.json）"
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodeAgentHeartbeatPayload": {
+      "type": "object",
+      "properties": {
+        "ts": {
+          "type": "string"
+        },
+        "loadAvg": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "memFreeBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "diskFreeBytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/componentStatus"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "componentLogPayload": {
+      "type": "object",
+      "required": [
+        "componentId",
+        "stream",
+        "lines"
+      ],
+      "properties": {
+        "componentId": {
+          "type": "string"
+        },
+        "stream": {
+          "type": "string",
+          "enum": [
+            "stdout",
+            "stderr"
+          ]
+        },
+        "seq": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodeCmdPayload": {
+      "type": "object",
+      "required": [
+        "commandId",
+        "command"
+      ],
+      "properties": {
+        "commandId": {
+          "type": "string"
+        },
+        "command": {
+          "type": "string",
+          "enum": [
+            "deploy",
+            "reconfigure",
+            "start",
+            "stop",
+            "restart",
+            "retry",
+            "upgrade",
+            "uninstall",
+            "log_tail",
+            "log_search",
+            "set_log_level",
+            "update_agent",
+            "run_job",
+            "prune",
+            "stats",
+            "inspect",
+            "diagnose",
+            "exec",
+            "exec_start",
+            "exec_poll",
+            "exec_input",
+            "exec_resize",
+            "exec_close",
+            "file_list",
+            "file_upload_begin",
+            "file_upload_chunk",
+            "file_upload_end",
+            "file_upload_cancel",
+            "file_download_begin",
+            "file_download_chunk",
+            "file_download_end"
+          ]
+        },
+        "componentId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "spec": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/componentSpec"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "image": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tag": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "level": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tail": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "query": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "from": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "to": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "keyword": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "level": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "page": {
+              "type": "integer"
+            },
+            "size": {
+              "type": "integer"
+            }
+          }
+        },
+        "timeoutSeconds": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodeCmdAckPayload": {
+      "type": "object",
+      "required": [
+        "commandId",
+        "accepted"
+      ],
+      "properties": {
+        "commandId": {
+          "type": "string"
+        },
+        "accepted": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodeCmdResultPayload": {
+      "type": "object",
+      "required": [
+        "commandId",
+        "ok"
+      ],
+      "properties": {
+        "commandId": {
+          "type": "string"
+        },
+        "componentId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "command": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "component": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/componentStatus"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logLines": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "total": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
       "additionalProperties": false
     }
   },
-
   "oneOf": [
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "AUTH" }, "payload": { "$ref": "#/$defs/authPayload" } }, "required": ["payload"] } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "AUTH_ACK" }, "payload": { "$ref": "#/$defs/authAckPayload" } }, "required": ["payload"] } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "NODE_REGISTER" }, "payload": { "$ref": "#/$defs/nodeRegisterPayload" } }, "required": ["payload"] } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "NODE_STATUS" }, "payload": { "$ref": "#/$defs/nodeStatusPayload" } }, "required": ["payload"] } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "PING" }, "payload": { "$ref": "#/$defs/emptyPayload" } } } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "PONG" }, "payload": { "$ref": "#/$defs/emptyPayload" } } } ] },
     {
       "allOf": [
-        { "$ref": "#/$defs/envelope" },
-        { "properties": { "type": { "const": "TASK_ASSIGN" }, "payload": { "$ref": "#/$defs/taskAssignPayload" } }, "required": ["payload"] },
         {
-          "if": { "properties": { "payload": { "properties": { "component": { "const": "model-puller" } } } } },
-          "then": { "properties": { "payload": { "properties": { "spec": { "$ref": "#/$defs/pullSpec" } } } } },
-          "else": {
-            "if": { "properties": { "payload": { "properties": { "component": { "const": "model-compressor" } } } } },
-            "then": { "properties": { "payload": { "properties": { "spec": { "$ref": "#/$defs/compressSpec" } } } } },
-            "else": {
-              "if": { "properties": { "payload": { "properties": { "component": { "const": "model-trainer" } } } } },
-              "then": { "properties": { "payload": { "properties": { "spec": { "$ref": "#/$defs/trainSpec" } } } } },
-              "else": { "properties": { "payload": { "properties": { "spec": { "$ref": "#/$defs/serveSpec" } } } } }
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "AUTH"
+            },
+            "payload": {
+              "$ref": "#/$defs/authPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "AUTH_ACK"
+            },
+            "payload": {
+              "$ref": "#/$defs/authAckPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "NODE_REGISTER"
+            },
+            "payload": {
+              "$ref": "#/$defs/nodeRegisterPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "NODE_STATUS"
+            },
+            "payload": {
+              "$ref": "#/$defs/nodeStatusPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "GPU_REGISTER"
+            },
+            "payload": {
+              "$ref": "#/$defs/gpuRegisterPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "GPU_REPORT"
+            },
+            "payload": {
+              "$ref": "#/$defs/gpuReportPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "GPU_REPORT_ACK"
+            },
+            "payload": {
+              "$ref": "#/$defs/gpuReportAckPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "PING"
+            },
+            "payload": {
+              "$ref": "#/$defs/emptyPayload"
             }
           }
         }
       ]
     },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_ACK" }, "payload": { "$ref": "#/$defs/taskAckPayload" } }, "required": ["payload"] } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_PROGRESS" }, "payload": { "$ref": "#/$defs/taskProgressPayload" } }, "required": ["payload"] } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_LOG" }, "payload": { "$ref": "#/$defs/taskLogPayload" } }, "required": ["payload"] } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_RESULT" }, "payload": { "$ref": "#/$defs/taskResultPayload" } }, "required": ["payload"] } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_ERROR" }, "payload": { "$ref": "#/$defs/taskErrorPayload" } }, "required": ["payload"] } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "TASK_CANCEL" }, "payload": { "$ref": "#/$defs/taskCancelPayload" } }, "required": ["payload"] } ] },
-    { "allOf": [ { "$ref": "#/$defs/envelope" }, { "properties": { "type": { "const": "CONFIG_UPDATE" }, "payload": { "$ref": "#/$defs/configUpdatePayload" } }, "required": ["payload"] } ] }
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "PONG"
+            },
+            "payload": {
+              "$ref": "#/$defs/emptyPayload"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "TASK_ASSIGN"
+            },
+            "payload": {
+              "$ref": "#/$defs/taskAssignPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        },
+        {
+          "if": {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "component": {
+                    "const": "model-puller"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "spec": {
+                    "$ref": "#/$defs/pullSpec"
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "if": {
+              "properties": {
+                "payload": {
+                  "properties": {
+                    "component": {
+                      "const": "model-compressor"
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "payload": {
+                  "properties": {
+                    "spec": {
+                      "$ref": "#/$defs/compressSpec"
+                    }
+                  }
+                }
+              }
+            },
+            "else": {
+              "if": {
+                "properties": {
+                  "payload": {
+                    "properties": {
+                      "component": {
+                        "const": "model-trainer"
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "payload": {
+                    "properties": {
+                      "spec": {
+                        "$ref": "#/$defs/trainSpec"
+                      }
+                    }
+                  }
+                }
+              },
+              "else": {
+                "if": {
+                  "properties": {
+                    "payload": {
+                      "properties": {
+                        "component": {
+                          "const": "dataset-importer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "payload": {
+                      "properties": {
+                        "spec": {
+                          "$ref": "#/$defs/pullSpec"
+                        }
+                      }
+                    }
+                  }
+                },
+                "else": {
+                  "if": {
+                    "properties": {
+                      "payload": {
+                        "properties": {
+                          "component": {
+                            "const": "imagegen-worker"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "then": {
+                    "properties": {
+                      "payload": {
+                        "properties": {
+                          "spec": {
+                            "$ref": "#/$defs/imageGenTaskSpec"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "else": {
+                    "properties": {
+                      "payload": {
+                        "properties": {
+                          "spec": {
+                            "$ref": "#/$defs/serveSpec"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "TASK_ACK"
+            },
+            "payload": {
+              "$ref": "#/$defs/taskAckPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "TASK_PROGRESS"
+            },
+            "payload": {
+              "$ref": "#/$defs/taskProgressPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "TASK_SNAPSHOT"
+            },
+            "payload": {
+              "$ref": "#/$defs/taskSnapshotPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "TASK_LOG"
+            },
+            "payload": {
+              "$ref": "#/$defs/taskLogPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "TASK_RESULT"
+            },
+            "payload": {
+              "$ref": "#/$defs/taskResultPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "TASK_ERROR"
+            },
+            "payload": {
+              "$ref": "#/$defs/taskErrorPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "TASK_CANCEL"
+            },
+            "payload": {
+              "$ref": "#/$defs/taskCancelPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "CONFIG_UPDATE"
+            },
+            "payload": {
+              "$ref": "#/$defs/configUpdatePayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "NODE_AGENT_REGISTER"
+            },
+            "payload": {
+              "$ref": "#/$defs/nodeAgentRegisterPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "NODE_AGENT_HEARTBEAT"
+            },
+            "payload": {
+              "$ref": "#/$defs/nodeAgentHeartbeatPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "COMPONENT_STATUS"
+            },
+            "payload": {
+              "$ref": "#/$defs/componentStatus"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "COMPONENT_LOG"
+            },
+            "payload": {
+              "$ref": "#/$defs/componentLogPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "NODE_CMD"
+            },
+            "payload": {
+              "$ref": "#/$defs/nodeCmdPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "NODE_CMD_ACK"
+            },
+            "payload": {
+              "$ref": "#/$defs/nodeCmdAckPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "NODE_CMD_RESULT"
+            },
+            "payload": {
+              "$ref": "#/$defs/nodeCmdResultPayload"
+            }
+          },
+          "required": [
+            "payload"
+          ]
+        }
+      ]
+    }
   ]
 }

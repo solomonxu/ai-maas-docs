@@ -2,55 +2,69 @@
 
 [English](./deployment.en.md) | [简体中文](./deployment.md)
 
-> Currently focused on Docker Compose; Helm/K8s/offline are planned (incrementally added).
+> OpenMaas primarily uses Docker Compose today. Helm/K8s and offline packages have a working foundation; use the code repository's `deploy/` directory as the source of truth.
 
-## Deployment modes
+## Deployment Modes
 
 | Mode | Description | Status |
 |---|---|---|
-| Single-node Compose | Control plane + runtimes + dependencies in one stack | Available (M0) |
-| Split deployment | Separate management / compute nodes | Available (M0) |
-| GPU nodes | GPU (ROCm/CUDA) for training/inference | Being improved |
-| Offline | Air-gapped: import images and models via offline packs | Planned |
-| Helm / K8s | Cluster & elasticity | Planned |
+| Single-node Compose | Control plane, runtimes, and dependencies together | Available |
+| Split deployment | Management node and compute nodes separated | Available |
+| GPU nodes | ROCm or CUDA training/inference | Available with matching node images |
+| Helm / K8s | Private cluster deployment | Foundation available |
+| Offline | Import images and models without internet access | Offline packages and scripts exist |
 
-## Single-node Compose
+## Single-Node Compose
+
+After the code repository is public:
 
 ```bash
-cd deploy/docker-compose
+git clone <OpenMaas repository URL> ai-maas
+cd ai-maas/deploy/docker-compose
 cp .env.example .env
 docker compose up -d --build
 ```
 
-- Entry: gateway `http://localhost:18080` (see `.env`).
-- Ports and data locations: see `ports-mapping.md`.
-- Dependencies: PostgreSQL / MinIO / Nacos / Redis / RocketMQ.
+Endpoints:
 
-## Split deployment (management / compute)
+```text
+Web:     http://localhost:5173
+Gateway: http://localhost:18080
+```
 
-- Management node: `bash deploy/docker-compose/scripts/deploy-management.sh`
-- Compute node: copy `deploy/docker-compose/runtime/.env.example` to `.env`, set `MANAGEMENT_HOST`, then
-  `bash deploy/docker-compose/scripts/deploy-runtime.sh`
-- Host ports are uniformly +10000 (example convention); see `ports-mapping.md`.
+The first startup may take time because many images are built or pulled.
 
-## GPU deployment
+## Split Deployment
 
-- Use the GPU override file (e.g., `docker-compose.gpu.yml`) and the corresponding base images.
-- Training/inference engine images must match the node `arch/vendor` (see engine manifest & multi-arch build docs).
+- Management node: `deploy/docker-compose/scripts/deploy-management.sh`;
+- Compute node: copy `deploy/docker-compose/runtime/.env.example` to `.env`, set `MANAGEMENT_HOST`, then run `deploy/docker-compose/scripts/deploy-runtime.sh`;
+- See `deploy/docker-compose/ports-mapping.md` for port conventions.
 
-## Environment variables
+## GPU Deployment
 
-- **Single source of truth**: the deploy-env reference (code repo `docs/ref/deploy-env.md`).
-- `.env.example` covers all referenced variables; never commit real secrets.
+Training and inference require matching node architecture, vendor, and runtime. AMD uses ROCm images, NVIDIA uses CUDA images, and Jetson uses the corresponding arm64 images. Pin image digests and use a controlled registry in production.
 
-## Offline deployment (planned)
+## Helm / K8s
 
-- Pre-pull base/runtime images, then `docker save/load` or import via a private registry.
-- Offline import of models/datasets (transfer packs) → register/scan.
-- See the upcoming offline deployment manual.
+The Helm chart lives in `deploy/helm/maas/`. Before a production cluster deployment, prepare Kubernetes, Ingress, StorageClass, PostgreSQL, MinIO, Redis, Nacos, GPU device plugins (if needed), Secrets, network policies, TLS, and image-pull credentials. See the Helm README in the code repository for values and validation.
 
-## Security & operations
+## Offline Deployment
 
-- Rotate default passwords/secrets; enable TLS/network isolation; run with least privilege.
-- Back up PostgreSQL and MinIO; plan upgrade/rollback and object lifecycle.
-- In production, wire the diagnosis ports/health checks into monitoring and alerting.
+Prepare images and models in a connected environment, transfer them through `docker save/load`, a private registry, or offline media, then register models and datasets in the target environment. Start with Compose or Helm.
+
+## Environment Variables
+
+- `docs/ref/deploy-env.md` in the code repository is the single source of truth;
+- `.env.example` covers the main settings;
+- never commit real secrets, tokens, or production passwords;
+- replace default credentials and enable TLS, network isolation, and least privilege in production.
+
+## Operations
+
+Back up PostgreSQL and MinIO, monitor infrastructure and runtimes, configure GPU leases and capacity limits, and validate image, database migration, and rollback steps before upgrades.
+
+## Related
+
+- [Quickstart](./quickstart.en.md)
+- [Architecture](./architecture.en.md)
+- [Security](../SECURITY.en.md)

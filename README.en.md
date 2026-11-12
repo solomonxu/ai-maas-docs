@@ -1,115 +1,90 @@
-# AI MaaS — A Private, Base-Model-Agnostic Fine-Tuning Platform
+# OpenMaas
 
-> Base-model agnostic · Private/offline deployment · COLA DDD microservices
-> Status: **🚧 M0 (under development, not production-ready)** ｜ License: [Apache-2.0](./LICENSE)
+> **Open Model-as-a-Service** · Self-hosted AI platform · Base-model agnostic
 
 [English](./README.en.md) | [简体中文](./README.md)
 
-AI MaaS is a **privately deployable** platform for **fine-tuning and serving** large language models, built for vertical industries such as finance and legal.
+OpenMaas is a self-hosted platform for model training, inference, and evaluation. It covers base models, datasets, training, model artifacts, inference services, evaluation, model compression, image management, and resource governance, and connects these capabilities through a unified training-to-inference pipeline.
 
-## Why AI MaaS
+> **Status:** OpenMaas is in open-source closeout. The public repository and documentation site are coming soon.
+> **License:** [Apache-2.0](./LICENSE)
+> **Authors:** OpenMaas Team · XU Meng (许猛)
 
-- **Base-model agnostic**: swap in any open model (Qwen / Llama / DeepSeek, …) via configuration only — no business-code changes.
-- **Private / offline by design**: your data never leaves your domain; supports air-gapped and on-prem environments.
+## Why OpenMaas
 
-## Architecture Overview
+- **Self-hosted:** data and models stay in your environment, suitable for regulated industries.
+- **Base-model agnostic:** unified model descriptions and inference adapters; swap Qwen, Llama, DeepSeek, and others without changing business code.
+- **End-to-end:** model pull, dataset import, training, artifacts, inference, and evaluation in one platform.
+- **Pipeline as a run:** preflight snapshots, stage state machines, database leases, and recovery make cross-service workflows recoverable, explainable, and governable.
+- **Operational governance:** tenant isolation, permissions, audit, GPU resource governance, cost attribution, and release gates.
 
-```
-            ┌──────────────────────────────┐
-            │        Vue 3 SPA (Frontend)    │
-            └───────────────┬──────────────┘
-                     HTTP / SSE / WS
-                            │
-                 ┌──────────▼───────────┐
-                 │ Spring Cloud Gateway │
-                 └──────────┬───────────┘
-                    REST │            │ REST/WS
-        ┌────────────────▼──┐   ┌─────▼──────────────────────────┐
-        │  Control-plane     │   │        runtime-hub              │
-        │  services (Java)   │   │  (unified WS control plane)     │
-        │  model / dataset / │   └─────┬──────────────────────────┘
-        │  training / ...    │         │ WebSocket
-        └─────────┬──────────┘   ┌─────▼──────────────────────────┐
-                  │              │  Python runtimes                │
-                  │              │  puller / trainer / server /    │
-                  │              │  scanner / compressor / ...     │
-                  │              └─────┬──────────────────────────┘
-                  └──────────┬─────────┘
-                 ┌───────────▼───────────────────────────────┐
-                 │ PostgreSQL · MinIO · Redis · RocketMQ · Nacos │
-                 └────────────────────────────────────────────┘
+## Architecture
+
+```mermaid
+flowchart TB
+  UI[Vue 3 Web] --> GW[Spring Cloud Gateway]
+  GW --> SVC[Java services]
+  SVC --> PS[pipeline-service]
+  SVC --> RT[Python runtimes]
+  RT --> INFRA[PostgreSQL · MinIO · Redis · Nacos]
+  PS --> INFRA
+  PS --> DOMAIN[Base model · Dataset · Training · Artifact · Serving · Eval]
 ```
 
-## Tech Stack
+See [Architecture](./docs/architecture.en.md) for details.
 
-| Layer | Tech |
+## Capabilities
+
+| Area | Capabilities |
 |---|---|
-| Backend | Java 17 · Spring Boot 3.x · Spring Cloud Alibaba · **COLA DDD** |
-| Runtimes | **Python 3.12** (CPU) · PyTorch · Transformers · vLLM · PEFT |
-| Frontend | Vue 3 · TypeScript · Pinia · Vue Router · **in-house components (no third-party UI lib)** |
-| Storage | PostgreSQL (database-per-service) · MinIO |
-| Messaging/Registry | RocketMQ · Nacos · Redis |
-| Deployment | Docker Compose · Helm/K8s (planned) |
-| Contracts | WebSocket message schema · ADRs · engine/recipe manifests |
-
-## Key Features
-
-- **Unified model abstraction**: a single description for tokenizer / chat_template / quantization / context length.
-- **Unified WS control plane**: single bidirectional connection between Java and Python runtimes (dispatch tasks, collect status/progress/logs) with heartbeat, offline detection, exponential backoff, and a registry for multi-replica routing.
-- **End-to-end pipeline**: model pull → post-pull scan (security/structure) → fine-tuning (CPU/GPU) → evaluation → quantization/compression → inference serving.
-- **COLA DDD layering**: `domain` has zero framework dependencies; `adapter → app → domain ← infrastructure`.
-- **Governance (M1+, planned)**: Model Registry · Eval Gate · Guardrail · Inference Gateway · RAG/Knowledge · Prompt Registry.
+| Base models | Registration, pull, scan, variant assets |
+| Datasets | Import, scan, versions, subsets, lineage |
+| Training | LoRA/QLoRA/full fine-tuning, multiple paradigms, job lifecycle |
+| Artifacts | Registration, promotion, Model Card, release governance |
+| Inference | Multi-engine runtimes, OpenAI-compatible endpoints, API keys |
+| Evaluation | Evaluation sets, tasks, quality gates |
+| Compression | Quantization, pruning, distillation, quality reports |
+| Pipeline | Preflight, stage state machine, recovery, cost, approval, triggers |
+| Resource governance | GPU leases, queues, nodes, images, capacity views |
+| App plane | Chat, Speech, Translation, Image Generation (optional) |
 
 ## Quick Start
 
-> Requires Docker and Docker Compose. Local host ports are used by default; actual ports follow your `.env`.
+After the code repository is public, start a single-node Docker Compose environment:
 
 ```bash
-git clone <your-fork-or-mirror-url> ai-maas
+git clone <OpenMaas repository URL> ai-maas
 cd ai-maas/deploy/docker-compose
 cp .env.example .env
 docker compose up -d --build
 ```
 
-Then open the gateway entry point: `http://localhost:18080` (see `MANAGEMENT_*`/port mappings in `.env`).
+Development endpoints:
 
-See [Quickstart](./docs/quickstart.en.md) and [Deployment](./docs/deployment.en.md) for details.
+```text
+Web:     http://localhost:5173
+Gateway: http://localhost:18080
+```
+
+See [Quickstart](./docs/quickstart.en.md) and [Deployment](./docs/deployment.en.md).
 
 ## Documentation
 
-| Doc | Description |
+| Document | Description |
 |---|---|
-| [docs/overview.en.md](./docs/overview.en.md) | Project overview and positioning |
-| [docs/architecture.en.md](./docs/architecture.en.md) | Architecture (layers, control plane, data) |
-| [docs/quickstart.en.md](./docs/quickstart.en.md) | Quickstart |
-| [docs/development.en.md](./docs/development.en.md) | Development guide and conventions |
-| [docs/deployment.en.md](./docs/deployment.en.md) | Deployment (Compose / GPU / offline) |
-| [docs/dev-log/](./docs/dev-log/) | Daily development log |
-| [PLAN.en.md](./PLAN.en.md) | Master plan and roadmap (English summary) |
-| [docs/DB_SCHEMA_PLAN.en.md](./docs/DB_SCHEMA_PLAN.en.md) | Database & domain model (English summary) |
-| [SECURITY.en.md](./SECURITY.en.md) | Security policy (English) |
-| [CONTRIBUTING.en.md](./CONTRIBUTING.en.md) | Contributing (English) |
-| [docs/plan/ui/list-ui-ux-conventions.md](./docs/plan/ui/list-ui-ux-conventions.md) | Reusable UI/UX conventions prompt for list pages (Chinese) |
-| [docs/decisions/](./docs/decisions/) | Architecture Decision Records (ADR) |
-
-> Most detailed documents are currently in Chinese; English translations are being added incrementally.
-
-## Roadmap
-
-| Phase | Goal | Timeline |
-|---|---|---|
-| **M0** Validation | End-to-end minimal pipeline working (in progress) | 0–2 months |
-| M1 MVP | Productized minimal loop, pilot-ready | 2–5 months |
-| M2 Productization | Multi-tenant reusable, governance layer | 5–9 months |
-| M3 Scaling | Template marketplace + data flywheel | 9–15 months |
+| [Overview](./docs/overview.en.md) | Positioning, scope, and target users |
+| [Architecture](./docs/architecture.en.md) | Services, control plane, and data |
+| [Quickstart](./docs/quickstart.en.md) | Local startup and first steps |
+| [Deployment](./docs/deployment.en.md) | Compose, split deployment, GPU, Helm, offline |
+| [Development](./docs/development.en.md) | Development conventions and local workflow |
+| [Security](./SECURITY.en.md) | Security policy and reporting |
+| [Dev Log](./docs/dev-log/) | Daily development records |
+| [WS Schema](./docs/protocol/ws-message-schema.json) | Runtime WebSocket message contract |
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). For security issues, follow [SECURITY.md](./SECURITY.md) — please do not disclose publicly.
+Issues, documentation improvements, and code contributions are welcome. Before the code repository is public, please use Issues or Discussions to start a conversation. After launch, follow [CONTRIBUTING.en.md](./CONTRIBUTING.en.md).
 
-## License & Disclaimer
+## License
 
-- This **documentation repository** is licensed under [Apache-2.0](./LICENSE); the code repository follows its own license (MIT).
-- The project is in **M0** and provided **“AS IS”**, **without any production-readiness warranty**; use at your own risk.
-- When integrating third-party **base models**, you are responsible for evaluating and complying with their licenses and regulations.
-- Third-party names/trademarks are used for descriptive and compatibility purposes only and do not imply endorsement.
+Licensed under [Apache-2.0](./LICENSE). Third-party models, datasets, and images remain under their respective licenses.

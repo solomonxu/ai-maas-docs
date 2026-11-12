@@ -2,41 +2,36 @@
 
 [English](./CONTRIBUTING.en.md) | [简体中文](./CONTRIBUTING.md)
 
-Thanks for your interest in AI MaaS. The project is in **M0 (under development)**; issues, discussions and documentation improvements are welcome.
+Thank you for contributing to OpenMaas. The project is in open-source closeout; Issues, documentation improvements, and code contributions are welcome.
 
 ## Communication
 
-- Questions/suggestions: open an issue (Bug / Feature / Docs).
-- Security issues: see [SECURITY.md](./SECURITY.en.md); do not disclose publicly.
+- Questions and proposals: open an Issue (Bug / Feature / Docs).
+- Security vulnerabilities: see [SECURITY.en.md](./SECURITY.en.md); do not disclose them publicly.
+- Before the code repository is public, use an Issue or Discussion to align on the approach.
 
-## Branches & commits
+## Branches and Commits
 
-- Branch model: `main` (stable, PR required) · `develop` (integration) · `feat/*`, `fix/*`, `docs/*`.
-- Commit message: `<type>(<scope>): <subject>`, type ∈ `feat|fix|docs|refactor|test|chore|perf|style`.
-  - e.g. `docs(readme): add quickstart`, `fix(puller): progress regression on resume`.
-- One PR = one intent; describe motivation / changes / impact / verification.
+- `main`: stable branch;
+- `feat/*`, `fix/*`, `docs/*`: feature, fix, and documentation branches;
+- commit format: `<type>(<scope>): <subject>`;
+- keep each PR focused and include motivation, changes, impact, and verification.
 
-## Documentation contributions
+## Code Contributions
 
-- Chinese-first; keep terminology consistent; prefer Markdown/mermaid over binary images.
-- Put images in `images/` with semantic names (e.g., `architecture-overview.png`).
-- Before committing, self-check for **no internal IPs/domains/credentials/customer info** (see red lines in `SECURITY.md`).
+After the code repository is public, follow the service boundaries, reuse the common runtime SDK, prefer in-house frontend components, and run the relevant unit, architecture, typecheck, build, and i18n checks.
 
-## Code contributions (code repo)
+## Documentation Contributions
 
-> Code is developed in the organization's private main repository; this repository is **documentation-only**. To contribute code, please start with an issue.
+- keep Chinese and English versions aligned;
+- prefer Markdown/Mermaid or SVG for diagrams;
+- put images under `images/` with semantic names;
+- never include internal IPs, domains, credentials, tokens, private keys, or customer information.
 
-- Backend: Java 17 + Spring Boot 3.x + COLA DDD; dependency direction `adapter → app → domain ← infrastructure`, `domain` has zero framework deps.
-- Runtimes: Python 3.12 (CPU).
-- Frontend: Vue 3 + TypeScript; **no third-party UI library** — use the in-house `components/common/*`.
-- Quality gates: unit tests + architecture guard (ArchUnit) + frontend type-check/build + i18n locale validation (see the code repo conventions).
+## Development Logs
 
-## Dev Log publishing convention
-
-- **Prepare on schedule**: every day at 23:00 a scheduled job auto-generates a **draft** (Chinese + English, de-duplicated and redacted) under `docs/dev-log/` — **no auto-commit, no push**.
-- **Push on confirmation**: after a maintainer **reviews and confirms**, the draft is **committed and pushed directly to `main`** (kept clean; **no PR**).
-- **Redaction red lines**: internal IPs/domains, credentials/tokens, private keys, customer info — any hit **aborts** the run.
+Logs are generated from code commits and reviewed by maintainers. English logs must be rewritten for quality, not produced by glossary substitution. Any sensitive hit stops publication.
 
 ## License
 
-By contributing, you agree to release under this repo's [Apache-2.0](./LICENSE); the code repository follows its own license (MIT).
+Documentation contributions are released under [Apache-2.0](./LICENSE). The code repository license is defined in that repository.

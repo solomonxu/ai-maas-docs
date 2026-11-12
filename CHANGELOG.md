@@ -1,16 +1,25 @@
 # Changelog
 
-本项目遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [语义化版本](https://semver.org/lang/zh-CN/)。
+OpenMaas follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and semantic versioning.
 
 ## [Unreleased]
 
-> 开发中（M0）。逐日进展见 [开发日志](./docs/dev-log/)。
+Open-source closeout. The public repository and documentation site are coming soon.
 
 ### Added
-- （待整理）
+
+- Self-hosted platform for base models, datasets, training, artifacts, inference, evaluation, compression, image management, and resource governance.
+- Training-to-inference pipeline with preflight snapshots, stage state machines, database leases, retries, cancellation, cost attribution, templates, and triggers.
+- WebSocket runtime control plane for Python pullers, trainers, inference workers, compressors, scanners, and node agents.
+- Tenant-aware platform services, audit, notifications, approvals, and budget-aware cost governance.
+- Vue 3 web console with goal-first pipeline flows and operational resource views.
 
 ### Changed
-- （待整理）
+
+- Public documentation now targets OpenMaas rather than the earlier AI MaaS name.
+- Historical `PLAN.md` content is archived under `docs/archive/`.
+- Internal engineering notes and UI review checklists are no longer part of the public documentation tree.
 
 ### Fixed
-- 前端：令牌失效后重新登录不再忘记当前位置——401 跳转携带 `redirect`，登录成功后回到原页面（站内路径校验，防开放重定向）。（2026-10-16）
+
+- Documentation links, deployment guidance, and public security/contribution pages have been aligned with the current project state.

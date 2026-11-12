@@ -6,3 +6,6 @@ __pycache__/
 scripts/
 *.swo
 *.swp
+docs/plan/
+docs/DB_SCHEMA_PLAN.md
+docs/DB_SCHEMA_PLAN.en.md

@@ -2,62 +2,75 @@
 
 [English](./development.en.md) | [简体中文](./development.md)
 
-> This is a **documentation-only** repository; code lives in the private main repository. Below is a summary of the engineering conventions.
+> OpenMaas has a code repository and this documentation repository. The code repository is coming soon; this repository holds product docs, architecture, protocol references, and development logs.
 
 ## Stack
 
-- Backend: Java 17 · Spring Boot 3.x · Spring Cloud Alibaba · COLA DDD
-- Runtimes: Python 3.12 (CPU)
-- Frontend: Vue 3 · TypeScript · Pinia · Vue Router (**in-house components, no third-party UI lib**)
-- Storage: PostgreSQL · MinIO · Redis · RocketMQ · Nacos
+- Backend: Java 17, Spring Boot 3.x, Spring Cloud Alibaba, COLA DDD;
+- Runtimes: Python 3.12, PyTorch, Transformers, vLLM, PEFT;
+- Frontend: Vue 3, TypeScript, Pinia, Vue Router, in-house components;
+- Infrastructure: PostgreSQL, MinIO, Redis, Nacos;
+- Deployment: Docker Compose, Helm/K8s, offline packages.
 
-## Conventions (highlights)
+## Engineering Conventions
 
-- **Layering**: `adapter → app → domain ← infrastructure`; `domain` has zero framework deps; enforced by ArchUnit.
-- **Response body**: uniform `Result<T>`; REST prefix `/api/v1`; centralized error codes.
-- **ID serialization**: boxed `Long` (snowflake IDs) are serialized as **strings** to avoid JS precision loss; frontend type `Id = string | number`.
-- **Comments**: class/interface/field/config items need comments; DB column comments are persisted (`COMMENT ON`).
-- **Multi-tenant**: `tenant_id` row-level + interceptor + RLS fallback; domain is tenant-agnostic.
-- **i18n**: frontend locales must be fully in sync and validated (no missing/extra/empty entries).
+- `adapter → app → domain ← infrastructure`; the domain layer has no framework dependencies;
+- unified `Result<T>`, `/api/v1` REST prefix, centralized error codes;
+- boxed `Long` IDs are serialized as strings to avoid JavaScript precision loss;
+- classes, interfaces, fields, and configuration items are documented; database comments are persisted;
+- tenant isolation uses `tenant_id`, interceptors, and RLS fallback;
+- frontend locales stay in sync; `npm run i18n:audit` must pass.
 
-## Local development (Java)
+## Code Repository
+
+After the repository is public:
 
 ```bash
-# compile a single module (with deps)
+git clone <OpenMaas repository URL> ai-maas
+cd ai-maas
+```
+
+Java:
+
+```bash
 mvn -q clean compile -pl <module> -am
-
-# full tests (some integration tests need Docker)
 mvn -q test
-
-# architecture guard
 mvn -q test -Dtest="*ArchitectureTest" -DfailIfNoTests=false
 ```
 
-## Local development (Python runtimes)
+Python:
 
 ```bash
-# e.g. install and test a runtime SDK/component
 pip install -e 'runtimes/common[test]'
 pip install -e 'runtimes/<component>[test]'
 pytest runtimes/common runtimes/<component>
 ```
 
-## Local development (frontend)
+Frontend:
 
 ```bash
 cd maas-web
 npm install
-npm run typecheck     # type check
-npm run build         # build
-npm run i18n:audit    # locale consistency audit
+npm run typecheck
+npm run build
+npm run i18n:audit
 ```
 
-## Commit convention
+## Documentation Repository
 
-`<type>(<scope>): <subject>`; type ∈ `feat|fix|docs|refactor|test|chore|perf|style`.
-One commit/PR = one intent; include how you verified it.
+This repository uses Markdown. Keep Chinese and English versions aligned, prefer Mermaid or SVG for diagrams, store images under `images/`, and review generated dev logs before committing. Scan for internal IPs, credentials, tokens, keys, and customer information before publishing.
 
-## Documentation convention
+## Commit Style
 
-- Chinese-first; keep terminology consistent; use Markdown/mermaid for diagrams; images go in `images/`.
-- Self-check for **no sensitive info** before committing (see [SECURITY.md](../SECURITY.md)).
+```text
+<type>(<scope>): <subject>
+```
+
+`type`: `feat | fix | docs | refactor | test | chore | perf | style`. Keep each commit or PR focused and include verification details.
+
+## Related
+
+- [Architecture](./architecture.en.md)
+- [Deployment](./deployment.en.md)
+- [Contributing](../CONTRIBUTING.en.md)
+- [Security](../SECURITY.en.md)

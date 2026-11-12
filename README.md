@@ -1,110 +1,90 @@
-# AI MaaS — 垂直行业私有化微调平台
+# OpenMaas
 
-> 基座无关的中间层 · 私有化部署 · COLA DDD 微服务架构
-> 状态：**🚧 M0（开发中，非生产就绪）** ｜ 许可：[Apache-2.0](./LICENSE)
+> **Open Model-as-a-Service** · Self-hosted AI platform · Base-model agnostic
 
 [简体中文](./README.md) | [English](./README.en.md)
 
-面向金融/法律等垂直行业，提供**私有化部署**的大模型**微调与推理**平台。
+OpenMaas 是面向私有化部署的模型训推与推理平台，覆盖基座模型、数据集、训练、模型制品、推理服务、评测、模型压缩、镜像与资源治理，并通过统一的训推流水线把这些能力组织成可交付的运行。
 
-## 为什么是 AI MaaS
+> **项目状态**：OpenMaas 目前处于开源收尾阶段，代码仓库与文档站即将开放。
+> **许可证**：[Apache-2.0](./LICENSE)
+> **作者**：OpenMaas Team · XU Meng（许猛）
 
-- **基座无关（Base-model agnostic）**：可替换 Qwen / Llama / DeepSeek 等任意开源模型，**只需改配置、不改业务代码**。
-- **私有化部署（Private/Offline）**：数据不出域，支持内网/离线环境，面向合规敏感场景。
+## 为什么是 OpenMaas
+
+- **Self-hosted**：数据与模型留在自有环境，适合金融、法律、政务等合规敏感场景。
+- **Base-model agnostic**：统一模型描述与推理后端适配，替换 Qwen、Llama、DeepSeek 等基座时不改业务代码。
+- **End-to-end**：从模型拉取、数据导入、训练、制品、推理到评测，覆盖完整训推链路。
+- **Pipeline as a run**：预检快照、阶段状态机、数据库租约和失败恢复，让跨服务长事务可恢复、可解释、可治理。
+- **Operational governance**：租户隔离、权限、审计、GPU 资源治理、成本归集和发布门禁。
 
 ## 架构概览
 
-```
-            ┌──────────────────────────────┐
-            │        Vue 3 前端 (SPA)        │
-            └───────────────┬──────────────┘
-                     HTTP / SSE / WS
-                            │
-                 ┌──────────▼───────────┐
-                 │ Spring Cloud Gateway │
-                 └──────────┬───────────┘
-                    REST │            │ REST/WS
-        ┌────────────────▼──┐   ┌─────▼──────────────────────────┐
-        │  管理面微服务       │   │        runtime-hub              │
-        │ (Java · COLA DDD)  │   │  （WS 统一控制面 / 注册表）      │
-        │ model / dataset /  │   └─────┬──────────────────────────┘
-        │ training / artifact│         │ WebSocket
-        │ serving / eval /   │   ┌─────▼──────────────────────────┐
-        │ compress / ...      │   │  Python 运行时                  │
-        └─────────┬──────────┘   │  puller / trainer / server /    │
-                  │              │  scanner / compressor / ...     │
-                  │              └─────┬──────────────────────────┘
-                  └──────────┬─────────┘
-                 ┌───────────▼───────────────────────────────┐
-                 │ PostgreSQL · MinIO · Redis · RocketMQ · Nacos │
-                 └────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+  UI[Vue 3 Web] --> GW[Spring Cloud Gateway]
+  GW --> SVC[Java services]
+  SVC --> PS[pipeline-service]
+  SVC --> RT[Python runtimes]
+  RT --> INFRA[PostgreSQL · MinIO · Redis · Nacos]
+  PS --> INFRA
+  PS --> DOMAIN[Base model · Dataset · Training · Artifact · Serving · Eval]
 ```
 
-## 技术栈
+详细架构见 [docs/architecture.md](./docs/architecture.md)。
 
-| 层 | 技术 |
+## 核心能力
+
+| 模块 | 能力 |
 |---|---|
-| 后端 | Java 17 · Spring Boot 3.x · Spring Cloud Alibaba · **COLA DDD** |
-| 运行时 | **Python 3.12**（CPU）· PyTorch · Transformers · vLLM · PEFT |
-| 前端 | Vue 3 · TypeScript · Pinia · Vue Router · **自研组件（无第三方 UI 库）** |
-| 存储 | PostgreSQL（database-per-service）· MinIO |
-| 消息/注册 | RocketMQ · Nacos · Redis |
-| 部署 | Docker Compose · Helm / K8s（规划中） |
-| 契约 | WebSocket 消息 Schema · ADR · 引擎/配方清单 |
-
-## 核心特性
-
-- **统一模型抽象**：tokenizer / chat_template / 量化格式 / 上下文长度 的统一描述。
-- **WS 统一控制面**：Java ↔ Python 运行时单连接双向（下发任务 + 回收状态/进度/日志），心跳/离线检测/指数退避重连，注册表支持多副本路由。
-- **端到端链路**：模型拉取 → 收尾扫描（安全/结构） → 微调（CPU/GPU） → 评测 → 量化/压缩 → 推理服务。
-- **COLA DDD 分层**：`domain` 零框架依赖，`adapter → app → domain ← infrastructure`。
-- **M1+ 治理（规划）**：Model Registry · Eval Gate · Guardrail · Inference Gateway · RAG/Knowledge · Prompt Registry。
+| 基座模型 | 登记、拉取、扫描、变体资产 |
+| 数据集 | 导入、扫描、版本、子集、血缘 |
+| 训练 | LoRA/QLoRA/全参、多范式训练、任务生命周期 |
+| 模型制品 | 产物注册、晋级、Model Card、发布治理 |
+| 推理服务 | 多引擎运行时、OpenAI 兼容端点、API Key |
+| 评测 | 金标集、评测任务、质量门禁 |
+| 模型压缩 | 量化、剪枝、蒸馏、质量报告 |
+| 训推流水线 | 预检、阶段状态机、恢复、成本、审批、触发器 |
+| 资源治理 | GPU 租约、队列、节点、镜像与容量视图 |
+| 应用面 | Chat、Speech、Translation、Image Generation（可选） |
 
 ## 快速开始
 
-> 需要 Docker 与 Docker Compose。默认使用本地主机端口；实际端口以 `.env` 为准。
+代码仓库公开后，可使用 Docker Compose 启动单机环境：
 
 ```bash
-git clone <your-fork-or-mirror-url> ai-maas
+git clone <OpenMaas repository URL> ai-maas
 cd ai-maas/deploy/docker-compose
 cp .env.example .env
 docker compose up -d --build
 ```
 
-启动后访问网关入口：`http://localhost:18080`（以 `.env` 中 `MANAGEMENT_*`/端口映射为准）。
+开发环境入口：
 
-更多：见 [快速开始](./docs/quickstart.md) 与 [部署文档](./docs/deployment.md)。
+```text
+Web:     http://localhost:5173
+Gateway: http://localhost:18080
+```
 
-## 文档导航
+详见 [Quickstart](./docs/quickstart.md) 与 [Deployment](./docs/deployment.md)。
+
+## 文档
 
 | 文档 | 说明 |
 |---|---|
-| [docs/overview.md](./docs/overview.md) | 项目概述与定位 |
-| [docs/architecture.md](./docs/architecture.md) | 架构详解（分层/控制面/数据） |
-| [docs/quickstart.md](./docs/quickstart.md) | 快速开始 |
-| [docs/development.md](./docs/development.md) | 开发指南与规范 |
-| [docs/deployment.md](./docs/deployment.md) | 部署（Compose / GPU / 离线） |
-| [docs/dev-log/](./docs/dev-log/) | 每日开发日志 |
-| [PLAN.md](./PLAN.md) | 总体规划与路线图（英文摘要见 [PLAN.en.md](./PLAN.en.md)） |
-| [docs/plan/ui/list-ui-ux-conventions.md](./docs/plan/ui/list-ui-ux-conventions.md) | 列表页 UI/UX 规范化提示词（可复用推广） |
-| [docs/decisions/](./docs/decisions/) | 架构决策记录（ADR，逐步补充） |
+| [Overview](./docs/overview.md) | 项目定位、能力边界与目标用户 |
+| [Architecture](./docs/architecture.md) | 架构、服务边界、控制面与数据 |
+| [Quickstart](./docs/quickstart.md) | 本地启动与首次使用 |
+| [Deployment](./docs/deployment.md) | Compose、分离部署、GPU、Helm、离线 |
+| [Development](./docs/development.md) | 开发规范与本地流程 |
+| [Security](./SECURITY.md) | 安全策略与报告方式 |
+| [Dev Log](./docs/dev-log/) | 每日开发记录 |
+| [WS Schema](./docs/protocol/ws-message-schema.json) | 运行时 WebSocket 消息契约 |
 
-## 路线图
+## 参与贡献
 
-| 阶段 | 目标 | 周期 |
-|---|---|---|
-| **M0** 验证期 | 端到端打通最小链路（开发中） | 0–2 月 |
-| M1 MVP | 产品化最小闭环，可交付试点 | 2–5 月 |
-| M2 产品化 | 多客户可复制，补齐治理层 | 5–9 月 |
-| M3 复制期 | 模板市场 + 数据飞轮 | 9–15 月 |
+欢迎 Issue、文档改进和代码贡献。代码仓库公开前，请先通过 Issue 或 Discussion 沟通；公开后按 [CONTRIBUTING.md](./CONTRIBUTING.md) 提交。
 
-## 贡献
+## 许可
 
-见 [CONTRIBUTING.md](./CONTRIBUTING.md)。安全问题请遵循 [SECURITY.md](./SECURITY.md)（勿公开披露）。
-
-## 许可证与免责声明
-
-- 本**文档仓**采用 [Apache-2.0](./LICENSE)；代码仓遵循其自身许可（MIT）。
-- 项目处于 **M0 开发中**，按 **“AS IS”** 提供，**不承诺生产可用性**；使用风险自负。
-- 集成第三方**基座模型**时，请自行评估并遵守相应模型许可证与合规要求。
-- 文中第三方名称/商标仅用于说明与兼容性描述，不构成背书。
+本项目使用 [Apache-2.0](./LICENSE) 许可证。第三方模型、数据集和镜像仍遵循各自许可证。

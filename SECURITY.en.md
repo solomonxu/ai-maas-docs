@@ -2,27 +2,23 @@
 
 [English](./SECURITY.en.md) | [简体中文](./SECURITY.md)
 
-## Supported scope
+## Supported Scope
 
-AI MaaS is in **M0 (under development)** and is **not committed to be production-ready**. Security fixes will be addressed on a best-effort basis, **without any SLA**.
+OpenMaas is in open-source closeout and is pre-1.0. Security fixes are handled on a best-effort basis; no production SLA is provided.
 
-## Reporting a vulnerability
+## Reporting a Vulnerability
 
-We follow **responsible disclosure**. Please **do not** disclose unfixed security issues in public issues.
+Please follow responsible disclosure and do not report unfixed vulnerabilities in public Issues. Prefer GitHub Security Advisories and include impact, reproduction steps, proof of concept if available, affected versions/commits, and contact information.
 
-- Preferred: report privately via **GitHub Security Advisories** (repository → Security → Report a vulnerability).
-- Please include: impact, reproduction steps, proof-of-concept (if any), affected version/commit, and your contact.
-- We will acknowledge and follow up within a reasonable time, and coordinate public disclosure after a fix.
+## Red Lines
 
-## Red lines (do not commit)
+Do not submit to the public repository:
 
-To protect deployers, it is **strictly forbidden** to commit to this public repository:
+- details or exploits for unfixed vulnerabilities;
+- internal IPs, domains, ports, database/object-storage/message-queue credentials, keys, or tokens;
+- customer information, contracts, trade secrets, or internal meeting notes;
+- personal or otherwise non-public data.
 
-- Details of unfixed vulnerabilities, exploit code (PoC), or raw security scan reports;
-- Internal IPs/domains/ports, database/object-storage/message-queue credentials, keys or tokens;
-- Customer information, contracts or trade secrets, internal meeting notes.
+## Deployment Guidance
 
-## Notes for deployers
-
-- This platform targets **private/on-prem deployment**. In production: rotate default credentials/secrets, enable network isolation and TLS, and run with least privilege.
-- When integrating third-party **base models**, you are responsible for evaluating and complying with their licenses and regulations.
+OpenMaas is designed for self-hosted deployment. In production, replace default credentials, enable TLS and network isolation, and run with least privilege. External models, datasets, images, and runtimes remain subject to their own licenses and compliance requirements.

@@ -2,38 +2,60 @@
 
 [English](./overview.en.md) | [简体中文](./overview.md)
 
-## One-liner
+## In One Sentence
 
-AI MaaS is a **base-model-agnostic**, **privately deployable** platform for **fine-tuning and serving** large language models for vertical industries (M0, under development).
+OpenMaas is a self-hosted platform for model training, inference, and evaluation, with capabilities for base models, datasets, training, artifacts, inference, evaluation, compression, resource governance, and pipelines.
 
-## Positioning & differentiators
+## Positioning
 
 | Dimension | Description |
 |---|---|
-| Base-model agnostic | Unified model description + inference-backend adapters; swapping Qwen/Llama/DeepSeek requires **configuration only**, no business-code changes |
-| Private | Data never leaves your domain; supports on-prem/air-gapped environments for compliance-sensitive industries |
-| End-to-end | Pull → scan → fine-tune → evaluate → quantize/compress → serve |
-| Engineering | COLA DDD microservices + unified WS control plane + decoupled frontend/backend |
+| Self-hosted | Data and models remain in your environment; suitable for private networks and regulated scenarios |
+| Base-model agnostic | Unified model descriptions and inference adapters; swap base models without business-code changes |
+| End-to-end | Pull → data → training → artifact → inference → evaluation → compression |
+| Run semantics | Preflight snapshots, stage state machines, database leases, recovery, cost, and audit |
+| Engineering | Java microservices, Python runtimes, Vue 3 frontend, COLA DDD boundaries |
 
-## Target users
+## Target Users
 
-- Organizations needing **private** LLM capabilities (finance, legal, government, …);
-- Teams that want to **quickly try and swap** multiple open base models;
-- Builders who care about **compliance, observability, and governance**.
+- architects and platform engineers building self-hosted AI platforms;
+- MLOps teams responsible for training, inference, and evaluation;
+- organizations focused on resource governance, cost attribution, and audit;
+- teams that want to evaluate or replace open base models quickly.
 
-## Core concepts
+## Core Concepts
 
-- **Base Model**: original weights that can be fine-tuned/served (e.g., `Qwen/Qwen2.5-0.5B`).
-- **Variant**: the minimal deployable unit (a single file or a set of files) with format/precision/quantization attributes; role is `model` or `component`.
-- **Runtime**: Python-side executors (pull/train/serve/scan, …) controlled over WebSocket.
-- **Artifact**: outputs from training/compression (LoRA, quantized weights, …) that can be registered and promoted.
+- **Base model:** source model weights that can be fine-tuned or served.
+- **Variant:** the smallest deployable unit, with format, precision, and quantization attributes.
+- **Runtime:** a Python execution component controlled through a WebSocket control plane.
+- **Artifact:** a training or compression output that can be registered, promoted, and released.
+- **Pipeline run:** a cross-service training-to-inference transaction with stages, preflight, events, and cost.
 
-## Non-goals (current stage)
+## Scope
 
-- Not aiming for full pretraining (focus: fine-tuning/LoRA and inference);
-- Does not bundle LLM weights (users pull/import and comply with their licenses);
-- M0 does not include large-scale data cleaning/indexing or multi-tenant governance (M1/M2).
+Current scope:
 
-## Status & roadmap
+```text
+base models / datasets / training / artifacts / inference
+/ evaluation / compression / pipelines / resource governance
+```
 
-See the [README roadmap](../README.en.md#roadmap) and [PLAN.md](../PLAN.md). Currently **M0**; features and APIs may change.
+Not goals for the first public version:
+
+- implementing a foundation-model training framework from scratch;
+- building an in-house inference engine;
+- replacing professional data-labeling tools;
+- exposing an arbitrary free-form DAG;
+- providing a complete financial billing system.
+
+## Status
+
+OpenMaas is in open-source closeout. The public repository and documentation site are coming soon. The current version is pre-1.0; APIs and capabilities may still change.
+
+## Related
+
+- [Architecture](./architecture.en.md)
+- [Quickstart](./quickstart.en.md)
+- [Deployment](./deployment.en.md)
+- [Development](./development.en.md)
+- [Security](../SECURITY.en.md)

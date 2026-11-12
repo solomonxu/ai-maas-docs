@@ -2,51 +2,70 @@
 
 [English](./quickstart.en.md) | [简体中文](./quickstart.md)
 
-> Prerequisites: Docker 20+ and Docker Compose v2. The first build takes a while (many images).
+> Prerequisites: Docker 20+ and Docker Compose v2. The first build can take time. Until the code repository is public, the repository URL below is a placeholder.
 
-## 1. Get the code
+## 1. Get the Code
 
 ```bash
-# use your organization's repository URL (placeholder)
-git clone <your-code-repo-url> ai-maas
+git clone <OpenMaas repository URL> ai-maas
 cd ai-maas
 ```
 
-## 2. Start with Docker Compose
+## 2. Start a Single-Node Environment
 
 ```bash
 cd deploy/docker-compose
-cp .env.example .env          # adjust ports/secrets as needed
+cp .env.example .env
 docker compose up -d --build
 ```
 
-- Gateway entry point: `http://localhost:18080` (see `.env` port mappings).
-- Ports and volumes: see `deploy/docker-compose/ports-mapping.md`.
+Endpoints:
 
-## 3. First use (recommended order)
-
-1. **Nodes**: ensure runtime components are online (puller/trainer/server, …).
-2. **Base model**: register → pull (HuggingFace / ModelScope) → post-pull analysis & scan → variant ready.
-3. **Dataset**: register/import → scan and create subsets.
-4. **Training**: create a fine-tuning job (LoRA) → metrics/logs → artifact.
-5. **Serving**: create an inference service from base + LoRA; call it via an OpenAI-compatible endpoint.
-6. **Eval/Compress**: run evaluation gates and quantization as needed.
-
-## 4. Stop / clean up
-
-```bash
-docker compose down            # stop (keep data volumes)
-docker compose down -v         # stop and delete data (caution)
+```text
+Web:     http://localhost:5173
+Gateway: http://localhost:18080
 ```
 
-## 5. FAQ
+Actual ports follow `.env` and the Compose mapping.
 
-- Slow first build: wait, or use an offline image pack (see [deployment](./deployment.en.md)).
-- Port conflict: change the port in `.env` and restart.
-- Pull failures: check network/mirror settings (source, mirror endpoint, token).
-- More: see [deployment](./deployment.en.md) and the troubleshooting doc (incrementally added).
+## 3. First Steps
 
-## Next
+1. Confirm that compute nodes and runtime components are online;
+2. Register and pull a base model;
+3. Import or register a dataset;
+4. Create a training job and inspect metrics and logs;
+5. Register the resulting artifact;
+6. Create an inference service and call the OpenAI-compatible endpoint;
+7. Run evaluation, compression, or a pipeline when needed.
 
-- Develop: [development](./development.en.md)
-- Architecture: [architecture](./architecture.en.md)
+## 4. Use the Pipeline
+
+In the web UI, open **Pipelines**:
+
+```text
+choose a goal → choose resources → choose a template
+→ preflight → create a run → start
+```
+
+You can also save a pipeline definition first and reference it from a trigger for Cron or Webhook automation.
+
+## 5. Stop and Clean Up
+
+```bash
+docker compose down       # stop, keep data
+docker compose down -v    # stop and delete data; use with care
+```
+
+## 6. Troubleshooting
+
+- Slow first startup: many images are required; wait or use an offline package.
+- Port conflicts: update `.env` and restart.
+- Model pull failure: check network, mirror settings, and tokens.
+- GPU unavailable: check node architecture, drivers, images, and device mappings.
+- Preflight failure: fix the reported resource or compatibility issue before starting.
+
+## More
+
+- [Deployment](./deployment.en.md)
+- [Architecture](./architecture.en.md)
+- [Development](./development.en.md)

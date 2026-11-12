@@ -2,41 +2,44 @@
 
 [简体中文](./CONTRIBUTING.md) | [English](./CONTRIBUTING.en.md)
 
-感谢参与 AI MaaS。当前处于 **M0（开发中）**，欢迎 Issue、讨论与文档改进。
+感谢参与 OpenMaas。项目处于开源收尾阶段，欢迎 Issue、文档改进和代码贡献。
 
 ## 沟通
 
-- 问题/建议：提交 Issue（Bug / Feature / Docs）。
-- 安全漏洞：见 [SECURITY.md](./SECURITY.md)，请勿公开披露。
+- 问题与建议：提交 Issue（Bug / Feature / Docs）；
+- 安全漏洞：见 [SECURITY.md](./SECURITY.md)，请勿公开披露；
+- 代码仓库公开前，先通过 Issue 或 Discussion 沟通方案。
 
 ## 分支与提交
 
-- 分支模型：`main`（稳定，需 PR）· `develop`（合流）· `feat/*`、`fix/*`、`docs/*`。
-- 提交信息：`<type>(<scope>): <subject>`，type ∈ `feat|fix|docs|refactor|test|chore|perf|style`。
-  - 例：`docs(readme): 补充快速开始`、`fix(puller): 断点续传进度回退`。
-- 一个 PR 聚焦一件事；标题清晰，描述含动机/改动/影响/验证。
+- `main`：稳定分支；
+- `feat/*`、`fix/*`、`docs/*`：功能、修复和文档分支；
+- 提交信息：`<type>(<scope>): <subject>`；
+- 一个 PR 聚焦单一意图，描述包含动机、改动、影响和验证方式。
+
+## 代码贡献
+
+代码仓库公开后：
+
+- Java：遵循 `adapter → app → domain ← infrastructure`，domain 零框架依赖；
+- Python：运行时组件复用公共 SDK，保持协议一致；
+- 前端：Vue 3 + TypeScript，优先复用自研组件；
+- 测试：单元测试、架构守护、前端类型检查/构建、i18n 校验。
 
 ## 文档贡献
 
-- 中文为主，术语保持一致；图表优先 Markdown/mermaid，避免二进制大图。
-- 图片放 `images/`，命名语义化（`architecture-overview.png`）。
-- 提交前自检：**无内部 IP/域名/凭据/客户信息**（见 `SECURITY.md` 红线）。
+- 中文为主，英文版本保持同步；
+- 图表优先使用 Markdown/Mermaid 或 SVG；
+- 图片放在 `images/`，命名语义化；
+- 不在公开文档中写入内部 IP、域名、凭据、Token、私钥或客户信息。
 
-## 代码贡献（代码仓）
+## 开发日志
 
-> 代码在本组织的私有主仓开发；本仓为**纯文档仓**。如需贡献代码，请先通过 Issue 沟通。
-
-- 后端：Java 17 + Spring Boot 3.x + COLA DDD；分层依赖 `adapter → app → domain ← infrastructure`，`domain` 零框架依赖。
-- 运行时：Python 3.12（CPU）。
-- 前端：Vue 3 + TypeScript；**不引入第三方 UI 库**，使用自研 `components/common/*`。
-- 质量门禁：单元测试 + 架构守护（ArchUnit）+ 前端类型检查/构建 + i18n 全语种校验（详见代码仓规范）。
-
-## 开发日志（Dev Log）发布约定
-
-- **待确认即准备**：每日 23:00 由调度任务自动**生成草稿**（中文 + 英文，自动去重与脱敏），写入 `docs/dev-log/`，**不自动提交、不推送**。
-- **确认即推送**：维护者**审阅确认**后**直接提交并推送到 `main`**（保持历史整洁，**不使用 PR**）。
-- **脱敏红线**：内网 IP/域名/凭据/Token/私钥/客户信息——命中即**中止**，禁止公开。
+- 每日由生成脚本从代码提交生成草稿；
+- 维护者审阅中文和英文内容后提交；
+- 英文版必须完整重写，不做机器词表替换；
+- 敏感信息命中时中止发布。
 
 ## 许可
 
-贡献即表示同意以本仓 [Apache-2.0](./LICENSE) 许可发布；代码仓遵循其自身许可（MIT）。
+文档贡献按本仓 [Apache-2.0](./LICENSE) 许可发布；代码仓许可证以代码仓为准。
