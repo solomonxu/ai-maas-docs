@@ -118,7 +118,7 @@
 
 这两类任务放到同一张 GPU 上，冲突就出现了。
 
-![一块 GPU 的两类资源：显存、计算与模型加载](assets/gpu-basics.svg)
+![一块 GPU 的两类资源：显存、计算与模型加载](assets/gpu-basics-zh.svg)
 
 > 图 1：模型加载到显存，任务获得计算时间；交互任务和批任务共享同一张卡。
 
@@ -210,7 +210,7 @@
 - 翻译有没有获得执行窗口；
 - 最后是否走了降级。
 
-![调度器视角与任务视角：翻译在文生图让出窗口中获得执行](assets/gpu-qos-timeline.svg)
+![调度器视角与任务视角：翻译在文生图让出窗口中获得执行](assets/gpu-qos-timeline-zh.svg)
 
 > 图 2：示意图，不代表每次都会成功运行。上层是调度器看到的粗粒度状态，下层展开为 demand、step、yield、run、fallback；如果显存或 LLM 容量仍不足，翻译仍会走 fallback。
 
@@ -277,7 +277,7 @@ unmanaged = max(0, device_actual - active_lease_budget)
 
 未纳管进入诊断和人工确认流程。平台会告警、展示原因、保留处置记录，让运维判断谁在占用资源。
 
-![三种显存口径：lease、allocation、device actual 与 unmanaged](assets/gpu-memory-ledgers.svg)
+![三种显存口径：lease、allocation、device actual 与 unmanaged](assets/gpu-memory-ledgers-zh.svg)
 
 > 图 3：租约、实际分配和设备实际是三份账本；未纳管是差额诊断，处理前需要人工确认。
 
