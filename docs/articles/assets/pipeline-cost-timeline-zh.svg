@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="300" viewBox="0 0 920 300">
+<title>墙上时钟与计费时长</title><desc>排队和人工等待不计入 GPU 成本。</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+<marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.06"/></filter>
+</defs><rect width="920" height="300" fill="#ffffff"/>
+
+<text x="48" y="42" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="20" fill="#0f172a" font-weight="700" text-anchor="start">墙上时钟与计费时长</text>
+<text x="48" y="68" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="start">排队和人工等待不应计入 GPU 成本</text>
+<text x="48" y="110" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#475569" font-weight="600" text-anchor="start">墙上时钟</text>
+<rect x="48" y="122" width="824" height="28" rx="6" fill="#e2e8f0" stroke="none" stroke-width="1.2" />
+<text x="62" y="141" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#475569" font-weight="normal" text-anchor="start">2 小时 1 分</text>
+<text x="48" y="178" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#475569" font-weight="600" text-anchor="start">计费执行</text>
+<rect x="48" y="190" width="824" height="28" rx="6" fill="#e2e8f0" stroke="none" stroke-width="1.2" />
+<rect x="48" y="190" width="14.07382920110193" height="28" rx="6" fill="#2563eb" stroke="none" stroke-width="1.2" />
+<text x="72" y="209" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#1d4ed8" font-weight="600" text-anchor="start">2 分 4 秒</text>
+<text x="48" y="252" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="13" fill="#334155" font-weight="normal" text-anchor="start">口径：按阶段有效执行时长累计，排队与人工等待不计费</text>
+<text x="48" y="276" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="13" fill="#334155" font-weight="normal" text-anchor="start">示例：同一运行成本从 15.2 修正为 0.26</text>
+</svg>

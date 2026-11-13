@@ -101,7 +101,7 @@ OpenMaas 是面向私有化部署的模型训推与推理平台，已经提供�
 
 这个边界的价值在于：流水线只做编排，不重新实现领域能力。训练服务仍然对自己的任务负责，推理服务仍然对自己的端点负责，流水线负责“把它们组织成一次可交付的运行”。
 
-![OpenMaas 流水线边界：用户、控制面、领域服务、运行时与基础设施](assets/pipeline-system-boundary.svg)
+![OpenMaas 流水线边界：用户、控制面、领域服务、运行时与基础设施](assets/pipeline-system-boundary-zh.svg)
 
 > 图 1：pipeline-service 只负责运行编排和状态收口；领域服务仍然拥有自己的状态机。图中实线表示编排/调用，虚线表示状态/遥测或数据读取。
 
@@ -162,7 +162,7 @@ LIMIT 1;
 
 流水线的核心不是“开始按钮”，而是运行状态机：
 
-![流水线运行状态机：成功路径、失败重试与取消分支](assets/pipeline-run-state.svg)
+![流水线运行状态机：成功路径、失败重试与取消分支](assets/pipeline-run-state-zh.svg)
 
 > 图 2：运行状态机。成功路径置顶，失败重试和取消作为独立分支；`BLOCK` 预检不能进入 `QUEUED`，`WARN` 需要显式确认。
 
@@ -266,27 +266,9 @@ sourceId = ...
 
 这三点构成了“可恢复”的基础。
 
-```mermaid
-sequenceDiagram
-  autonumber
-  participant A as pipeline-service A
-  participant DB as PostgreSQL
-  participant B as pipeline-service B
-  rect rgb(239, 246, 255)
-  Note over A,DB: lease window
-  A->>DB: claim QUEUED run (SKIP LOCKED)
-  DB-->>A: lease
-  loop heartbeat interval
-    A->>DB: refresh lease
-  end
-  end
-  Note over A: service stops / crash
-  DB-->>B: lease expired
-  B->>DB: reclaim run
-  B->>DB: continue from current stage
-```
+![租约接管时序：执行器在 pipeline-service 内部，通过仓储访问 PostgreSQL](assets/pipeline-lease-sequence-zh.svg)
 
-> 图 3：执行器是 pipeline-service 内部组件，通过仓储/JdbcTemplate 直接访问 PostgreSQL；图中用 pipeline-service 表示执行主体，避免把内部组件画成独立服务。租约过期后，其他副本可以接管未完成的运行。
+> 图 3：执行器是 pipeline-service 内部组件，通过仓储/JdbcTemplate 直接访问 PostgreSQL；租约过期后，其他副本可以接管未完成的运行。
 
 ## 五、资源编排：复用，而不是重造
 
@@ -376,7 +358,7 @@ sequenceDiagram
 
 修正后，同一个案例的成本从约 `15.2` 降到 `0.26`，计费时长约 `2m4s`。
 
-![成本口径：墙上时钟与计费时长](assets/pipeline-cost-timeline.svg)
+![成本口径：墙上时钟与计费时长](assets/pipeline-cost-timeline-zh.svg)
 
 > 图 4：墙上时钟与计费时长的差异。图注数据为示意案例，用于说明口径，不代表所有运行的比例。
 
@@ -469,7 +451,7 @@ sequenceDiagram
 
 ### 11.1 120 次运行完成耗时 ECDF
 
-![120 次流水线运行的完成耗时 ECDF](assets/pipeline-120-ecdf.svg)
+![120 次流水线运行的完成耗时 ECDF](assets/pipeline-120-ecdf-zh.svg)
 
 > 图 5：120 次运行的完成耗时 ECDF。横轴为 `startedAt → finishedAt` 的实际执行耗时，不包含排队等待；纵轴为累计完成比例。
 

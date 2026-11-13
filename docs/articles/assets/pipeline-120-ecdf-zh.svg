@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520">
+<title>120 次运行完成耗时 ECDF</title><desc>120 次成功运行的完成耗时累计分布。</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+<marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.06"/></filter>
+</defs><rect width="920" height="520" fill="#ffffff"/>
+
+<text x="78" y="36" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="20" fill="#0f172a" font-weight="600" text-anchor="start">120 次运行完成耗时 ECDF</text>
+<path d="M 78 450.0 L 878 450.0" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="66" y="455.0" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="end">0%</text>
+<path d="M 78 371.6 L 878 371.6" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="66" y="376.6" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="end">20%</text>
+<path d="M 78 293.2 L 878 293.2" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="66" y="298.2" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="end">40%</text>
+<path d="M 78 214.8 L 878 214.8" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="66" y="219.8" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="end">60%</text>
+<path d="M 78 136.4 L 878 136.4" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="66" y="141.4" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="end">80%</text>
+<path d="M 78 58.0 L 878 58.0" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="66" y="63.0" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="end">100%</text>
+<path d="M 78.0 58 L 78.0 450" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="78.0" y="474" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="middle">0</text>
+<path d="M 178.0 58 L 178.0 450" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="178.0" y="474" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="middle">10</text>
+<path d="M 278.0 58 L 278.0 450" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="278.0" y="474" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="middle">20</text>
+<path d="M 378.0 58 L 378.0 450" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="378.0" y="474" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="middle">30</text>
+<path d="M 478.0 58 L 478.0 450" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="478.0" y="474" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="middle">40</text>
+<path d="M 578.0 58 L 578.0 450" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="578.0" y="474" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="middle">50</text>
+<path d="M 678.0 58 L 678.0 450" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="678.0" y="474" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="middle">60</text>
+<path d="M 778.0 58 L 778.0 450" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="778.0" y="474" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="middle">70</text>
+<path d="M 878.0 58 L 878.0 450" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+<text x="878.0" y="474" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="normal" text-anchor="middle">80</text>
+<path d="M 78 58 L 78 450" fill="none" stroke="#94a3b8" stroke-width="1.2"/>
+<path d="M 78 450 L 878 450" fill="none" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="478.0" y="506" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="13" fill="#475569" font-weight="normal" text-anchor="middle">完成耗时（秒）</text>
+<text x="20" y="254.00" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="13" fill="#475569" text-anchor="middle" transform="rotate(-90 20 254.00)">运行累计占比</text>
+<path d="M 439.27000000000004 58 L 439.27000000000004 450" fill="none" stroke="#2563eb" stroke-width="1.4" stroke-dasharray="5 4"/>
+<circle cx="439.27" cy="254.00" r="4" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+<text x="447.27000000000004" y="84" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600" text-anchor="start">p50  36.1s</text>
+<path d="M 560.48 58 L 560.48 450" fill="none" stroke="#f59e0b" stroke-width="1.4" stroke-dasharray="5 4"/>
+<circle cx="560.48" cy="77.60" r="4" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="568.48" y="106" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#f59e0b" font-weight="600" text-anchor="start">p95  48.2s</text>
+<path d="M 787.35 58 L 787.35 450" fill="none" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="2 4"/>
+<circle cx="787.35" cy="58.00" r="4" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<text x="779.35" y="432" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#dc2626" font-weight="600" text-anchor="end">最大 70.9s</text>
+<path d="M 78.00 450.00 H 139.01 V 446.73 H 139.12 V 443.47 H 139.12 V 440.20 H 139.26 V 436.93 H 139.29 V 433.67 H 139.30 V 430.40 H 139.69 V 427.13 H 169.30 V 423.87 H 307.65 V 420.60 H 319.05 V 417.33 H 349.43 V 414.07 H 380.84 V 410.80 H 409.01 V 407.53 H 409.09 V 404.27 H 409.10 V 401.00 H 409.12 V 397.73 H 409.12 V 394.47 H 409.14 V 391.20 H 409.22 V 387.93 H 409.23 V 384.67 H 409.25 V 381.40 H 409.26 V 378.13 H 409.26 V 374.87 H 409.28 V 371.60 H 409.29 V 368.33 H 409.29 V 365.07 H 409.31 V 361.80 H 409.36 V 358.53 H 409.40 V 355.27 H 409.40 V 352.00 H 409.41 V 348.73 H 409.41 V 345.47 H 409.42 V 342.20 H 409.43 V 338.93 H 409.44 V 335.67 H 409.49 V 332.40 H 409.51 V 329.13 H 409.53 V 325.87 H 409.57 V 322.60 H 409.57 V 319.33 H 409.58 V 316.07 H 409.59 V 312.80 H 409.67 V 309.53 H 409.78 V 306.27 H 410.11 V 303.00 H 410.19 V 299.73 H 411.84 V 296.47 H 412.05 V 293.20 H 413.40 V 289.93 H 439.14 V 286.67 H 439.14 V 283.40 H 439.16 V 280.13 H 439.18 V 276.87 H 439.18 V 273.60 H 439.19 V 270.33 H 439.20 V 267.07 H 439.20 V 263.80 H 439.20 V 260.53 H 439.23 V 257.27 H 439.26 V 254.00 H 439.27 V 250.73 H 439.27 V 247.47 H 439.28 V 244.20 H 439.28 V 240.93 H 439.31 V 237.67 H 439.31 V 234.40 H 439.32 V 231.13 H 439.33 V 227.87 H 439.33 V 224.60 H 439.33 V 221.33 H 439.34 V 218.07 H 439.35 V 214.80 H 439.35 V 211.53 H 439.38 V 208.27 H 439.40 V 205.00 H 439.41 V 201.73 H 439.42 V 198.47 H 439.43 V 195.20 H 439.43 V 191.93 H 439.48 V 188.67 H 439.49 V 185.40 H 439.49 V 182.13 H 439.53 V 178.87 H 439.53 V 175.60 H 439.54 V 172.33 H 439.55 V 169.07 H 439.55 V 165.80 H 439.65 V 162.53 H 439.67 V 159.27 H 439.71 V 156.00 H 439.71 V 152.73 H 439.73 V 149.47 H 439.76 V 146.20 H 439.88 V 142.93 H 439.98 V 139.67 H 440.31 V 136.40 H 442.49 V 133.13 H 445.23 V 129.87 H 445.36 V 126.60 H 446.98 V 123.33 H 448.00 V 120.07 H 448.39 V 116.80 H 449.45 V 113.53 H 450.60 V 110.27 H 469.40 V 107.00 H 469.76 V 103.73 H 471.48 V 100.47 H 473.47 V 97.20 H 477.26 V 93.93 H 499.64 V 90.67 H 529.46 V 87.40 H 529.60 V 84.13 H 530.83 V 80.87 H 532.32 V 77.60 H 560.48 V 74.33 H 590.06 V 71.07 H 591.32 V 67.80 H 621.78 V 64.53 H 679.87 V 61.27 H 787.35 V 58.00 H 878.00" fill="none" stroke="#2563eb" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="670" y="74" width="190" height="26" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+<text x="682" y="91" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#166534" font-weight="600" text-anchor="start">120 / 120 成功</text>
+<text x="682" y="125" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="11" fill="#64748b" font-weight="normal" text-anchor="start">本地基线 · 非 SLA</text>
+</svg>
