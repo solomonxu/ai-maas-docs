@@ -11,6 +11,8 @@ The Building OpenMaas engineering series. Charts and test data are local baselin
 |---|---|
 | [Designing a Recoverable, Cost-Aware, Automatable Training-to-Inference Pipeline](./pipeline-technical-article-en.md) | Run model, recovery, preflight, cost, and automation |
 | [把模型训推做成一条可恢复、可计费、可自动化的流水线](./pipeline-technical-article.md) | Chinese version |
+| [Four Resources on One GPU: GPU Resource Governance for Training and Inference Platforms](./gpu-resource-governance-article-en.md) | VRAM, compute time, leases, residency, QoS, and eviction |
+| [一块 GPU 上的四种资源：训推平台的 GPU 资源治理](./gpu-resource-governance-article.md) | Chinese version |
 
 ## Notes
 

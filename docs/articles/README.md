@@ -11,6 +11,8 @@ OpenMaas 工程系列文章。文章中的图表和测试数据以本地基线�
 |---|---|
 | [把模型训推做成一条可恢复、可计费、可自动化的流水线](./pipeline-technical-article.md) | 训推流水线的运行模型、恢复、预检、成本与自动化 |
 | [Designing a Recoverable, Cost-Aware, Automatable Training-to-Inference Pipeline](./pipeline-technical-article-en.md) | English version |
+| [一块 GPU 上的四种资源：训推平台的 GPU 资源治理](./gpu-resource-governance-article.md) | GPU 显存、计算时间、租约、驻留、QoS 与驱逐 |
+| [Four Resources on One GPU: GPU Resource Governance for Training and Inference Platforms](./gpu-resource-governance-article-en.md) | English version |
 
 ## 说明
 
