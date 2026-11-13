@@ -409,7 +409,7 @@ unmanaged = max(0, device_actual - active_lease_budget)
 
 break-glass 是运维应急窗口；它仍然检查实际显存，不绕过物理容量。
 
-![GPU 租约生命周期：排队、预留、运行、释放与孤儿状态](assets/gpu-lease-lifecycle.svg)
+![GPU 租约生命周期：排队、预留、运行、释放与孤儿状态](assets/gpu-lease-lifecycle-zh.svg)
 
 > 图 4：`RELEASING` 表示释放请求，`RELEASED` 表示显存确认，`ORPHANED` 表示释放待确认。
 
@@ -628,7 +628,7 @@ LOADED
 
 训练、压缩和部分推理需要各自定义降级策略。
 
-![冷却释放与有边界优先级驱逐](assets/gpu-release-eviction.svg)
+![冷却释放与有边界优先级驱逐](assets/gpu-release-eviction-zh.svg)
 
 > 图 5：左侧是空闲冷却释放，右侧是有边界的优先级驱逐；两者都需要安全条件、确认和审计。
 
