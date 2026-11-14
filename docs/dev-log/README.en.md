@@ -1,12 +1,13 @@
 # Dev Log (English)
 
-[Chinese](./README.md) | [English](./README.en.md)
+[简体中文](./README.md) | [English](./README.en.md)
 
-> Daily development records generated from git commits, reviewed and redacted by maintainers. Newest first.
-> Each day includes a short summary and the day's completed work.
+> Auto-generated from git commits (offline glossary translation; redacted). Newest first.
+> Drafts are prepared by a scheduled job; a maintainer reviews, then commits **directly to main** (no PR).
 
 | Date | Link |
 |---|---|
+| 2026-11-13 | [2026-11-13](./2026-11-13.en.md) |
 | 2026-11-12 | [2026-11-12](./2026-11-12.en.md) |
 | 2026-11-11 | [2026-11-11](./2026-11-11.en.md) |
 | 2026-11-10 | [2026-11-10](./2026-11-10.en.md) |
