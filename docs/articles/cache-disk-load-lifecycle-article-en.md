@@ -4,6 +4,8 @@
 
 > OpenMaas Engineering Series  
 >
+> By XU Meng
+>
 > Draft v0.1 | 2026-11-14  
 >
 > Keywords: OpenMaas, model cache, disk lifecycle, page cache, model loading, GPU memory, cache GC

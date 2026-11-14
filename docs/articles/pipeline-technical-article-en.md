@@ -4,7 +4,7 @@
 >
 > Draft v0.1 · 2026-11-12
 >
-> Authors: OpenMaas Team and [Author Name]
+> By XU Meng
 >
 > Canonical URL: [OpenMaas Documentation URL]
 >

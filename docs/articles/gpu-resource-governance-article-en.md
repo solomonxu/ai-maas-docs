@@ -2,7 +2,7 @@
 
 > Building OpenMaas · GPU Resource Governance
 >
-> By OpenMaas Team and Solomon Xu
+> By XU Meng
 >
 > Keywords: GPU governance, VRAM, leases, model residency, interactive QoS, bounded eviction
 >
