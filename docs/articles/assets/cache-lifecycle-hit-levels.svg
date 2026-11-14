@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="640" viewBox="0 0 1160 640">
+<title>从缓存未命中到运行时命中</title><desc>同一模型的时间构成：未命中、下载命中、页缓存命中、运行时命中。</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#059669"/></marker>
+<marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.06"/></filter>
+</defs>
+<rect width="1160" height="640" fill="#ffffff"/>
+<text x="40" y="42" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="22" fill="#0f172a" font-weight="700" text-anchor="start">从缓存未命中到运行时命中</text><text x="40" y="66" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="12" fill="#64748b" font-weight="400" text-anchor="start">同一模型的时间构成；时间条按实测耗时绘制，短条设置最小可读宽度。</text>
+<text x="220" y="122" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9.5" fill="#64748b" font-weight="400" text-anchor="middle">0</text>
+<text x="1040" y="122" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9.5" fill="#64748b" font-weight="400" text-anchor="middle">207.743 秒</text>
+<text x="282.8470754730605" y="145" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9" fill="#64748b" font-weight="400" text-anchor="middle">31.844 秒</text>
+<text x="40" y="184" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="11" fill="#0f172a" font-weight="700" text-anchor="start">未命中</text>
+<rect x="220" y="160" width="694.305849053879" height="42" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="567.1529245269395" y="186" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9.2" fill="#2563eb" font-weight="600" text-anchor="middle">下载 175.899 秒</text>
+<rect x="914.305849053879" y="160" width="125.69415094612094" height="42" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="977.1529245269395" y="186" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9.1" fill="#059669" font-weight="600" text-anchor="middle">加载 31.844 秒</text>
+<text x="40" y="272" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="11" fill="#0f172a" font-weight="700" text-anchor="start">下载命中</text>
+<rect x="220" y="248" width="125.69415094612094" height="42" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="282.8470754730605" y="274" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9.1" fill="#059669" font-weight="600" text-anchor="middle">加载 31.844 秒</text>
+<text x="40" y="360" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="11" fill="#0f172a" font-weight="700" text-anchor="start">页缓存命中（热）</text>
+<rect x="220" y="336" width="92.56937658549266" height="42" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.0"/>
+<text x="266.28468829274635" y="362" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9.1" fill="#d97706" font-weight="600" text-anchor="middle">加载 23.452 秒</text>
+<text x="40" y="448" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="11" fill="#0f172a" font-weight="700" text-anchor="start">运行时命中</text>
+<rect x="220" y="424" width="80" height="42" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="260" y="450" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9.1" fill="#059669" font-weight="600" text-anchor="middle">已驻留</text>
+<rect x="40" y="500" width="16" height="12" rx="3" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="62" y="510" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">下载</text>
+<rect x="150" y="500" width="16" height="12" rx="3" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="172" y="510" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">加载到显存</text>
+<rect x="300" y="500" width="16" height="12" rx="3" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.0"/>
+<text x="322" y="510" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">page cache 热加载</text>
+<text x="40" y="548" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">冷下载加加载 207.743 秒；缓存命中后 31.844 秒，减少 84.67%。</text>
+<text x="40" y="574" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">下载命中省掉对象存储流量；页缓存命中把加载降到 23.452 秒；运行时命中省掉加载。</text>
+<text x="40" y="600" font-family='Inter, "Noto Sans CJK SC", "Noto Sans SC", "Segoe UI", Arial, sans-serif' font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">短条使用最小可读宽度，长度关系对应实测时间。</text>
+</svg>

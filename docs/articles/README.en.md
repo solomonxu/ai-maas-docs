@@ -13,6 +13,8 @@ The Building OpenMaas engineering series. Charts and test data are local baselin
 | [把模型训推做成一条可恢复、可计费、可自动化的流水线](./pipeline-technical-article.md) | Chinese version |
 | [Four Resources on One GPU: GPU Resource Governance for Training and Inference Platforms](./gpu-resource-governance-article-en.md) | VRAM, compute time, leases, residency, QoS, and eviction |
 | [一块 GPU 上的四种资源：训推平台的 GPU 资源治理](./gpu-resource-governance-article.md) | Chinese version |
+| [Cache, Disk, and Load: The Resource Lifecycle of an Inference Platform](./cache-disk-load-lifecycle-article-en.md) | Model cache, page cache, load path, disk cleanup, and automatic GC |
+| [缓存、磁盘与加载：推理平台的资源生命周期](./cache-disk-load-lifecycle-article.md) | Chinese version |
 
 ## Notes
 

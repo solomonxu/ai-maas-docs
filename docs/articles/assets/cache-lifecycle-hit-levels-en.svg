@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="640" viewBox="0 0 1160 640">
+<title>From Cache Miss to Runtime Hit</title><desc>Time bars for miss, download hit, warm page-cache hit, and runtime hit.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#059669"/></marker>
+<marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.06"/></filter>
+</defs>
+<rect width="1160" height="640" fill="#ffffff"/>
+<text x="40" y="42" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" fill="#0f172a" font-weight="700" text-anchor="start">From Cache Miss to Runtime Hit</text><text x="40" y="66" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="400" text-anchor="start">Time bars for the same 30.859 GiB model; short bars use a minimum readable width.</text>
+<text x="220" y="122" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="middle">0</text>
+<text x="1040" y="122" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="middle">207.743 s</text>
+<text x="282.8470754730605" y="145" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9" fill="#64748b" font-weight="400" text-anchor="middle">31.844 s</text>
+<text x="40" y="184" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="700" text-anchor="start">Miss</text>
+<rect x="220" y="160" width="694.305849053879" height="42" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="567.1529245269395" y="186" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.2" fill="#2563eb" font-weight="600" text-anchor="middle">Download 175.899 s</text>
+<rect x="914.305849053879" y="160" width="125.69415094612094" height="42" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="977.1529245269395" y="186" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.1" fill="#059669" font-weight="600" text-anchor="middle">Load 31.844 s</text>
+<text x="40" y="272" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="700" text-anchor="start">Download hit</text>
+<rect x="220" y="248" width="125.69415094612094" height="42" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="282.8470754730605" y="274" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.1" fill="#059669" font-weight="600" text-anchor="middle">Load 31.844 s</text>
+<text x="40" y="360" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="700" text-anchor="start">Page-cache hit (warm)</text>
+<rect x="220" y="336" width="92.56937658549266" height="42" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.0"/>
+<text x="266.28468829274635" y="362" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.1" fill="#d97706" font-weight="600" text-anchor="middle">Load 23.452 s</text>
+<text x="40" y="448" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="700" text-anchor="start">Runtime hit</text>
+<rect x="220" y="424" width="80" height="42" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="260" y="450" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.1" fill="#059669" font-weight="600" text-anchor="middle">Resident</text>
+<rect x="40" y="500" width="16" height="12" rx="3" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="62" y="510" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">Download</text>
+<rect x="150" y="500" width="16" height="12" rx="3" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="172" y="510" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">Load to VRAM</text>
+<rect x="300" y="500" width="16" height="12" rx="3" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.0"/>
+<text x="322" y="510" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">Warm page-cache load</text>
+<text x="40" y="548" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Cold download + load 207.743 s; cache hit 31.844 s; 84.67% lower.</text>
+<text x="40" y="574" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">A download hit removes object-store traffic; a page-cache hit shortens the local read; a runtime hit removes the load.</text>
+<text x="40" y="600" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Short bars use a minimum readable width; length follows the measured time.</text>
+</svg>

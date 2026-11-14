@@ -13,6 +13,8 @@ OpenMaas 工程系列文章。文章中的图表和测试数据以本地基线�
 | [Designing a Recoverable, Cost-Aware, Automatable Training-to-Inference Pipeline](./pipeline-technical-article-en.md) | English version |
 | [一块 GPU 上的四种资源：训推平台的 GPU 资源治理](./gpu-resource-governance-article.md) | GPU 显存、计算时间、租约、驻留、QoS 与驱逐 |
 | [Four Resources on One GPU: GPU Resource Governance for Training and Inference Platforms](./gpu-resource-governance-article-en.md) | English version |
+| [缓存、磁盘与加载：推理平台的资源生命周期](./cache-disk-load-lifecycle-article.md) | 模型缓存、磁盘占用、page cache、加载路径与自动回收 |
+| [Cache, Disk, and Load: The Resource Lifecycle of an Inference Platform](./cache-disk-load-lifecycle-article-en.md) | English version |
 
 ## 说明
 

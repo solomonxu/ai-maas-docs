@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="840" viewBox="0 0 1200 840">
+<title>Inference Node Resource Map</title><desc>Source data, node disk, page cache, runtime, GPU memory, and control plane.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#059669"/></marker>
+<marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.06"/></filter>
+</defs>
+<rect width="1200" height="840" fill="#ffffff"/>
+<text x="40" y="42" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" fill="#0f172a" font-weight="700" text-anchor="start">Inference Node Resource Map</text><text x="40" y="66" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="400" text-anchor="start">Source data, node storage, page cache, runtime, GPU, and control plane.</text>
+<rect x="40" y="110" width="240" height="260" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.3"/>
+<text x="58" y="138" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">Source data / outside cache GC</text>
+<rect x="56" y="156" width="208" height="52" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="70" y="176" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">MinIO</text>
+<text x="70" y="194" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">Models / datasets / outputs</text>
+<rect x="56" y="220" width="208" height="52" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="70" y="240" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">Image registry</text>
+<text x="70" y="258" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">Container images</text>
+<rect x="56" y="284" width="208" height="52" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="70" y="304" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">PostgreSQL</text>
+<text x="70" y="322" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">Metadata / leases / events</text>
+<rect x="320" y="110" width="360" height="500" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.3"/>
+<text x="340" y="138" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" fill="#0f172a" font-weight="700" text-anchor="start">Inference node</text>
+<text x="340" y="156" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">One disk, multiple owners</text>
+<rect x="340" y="174" width="320" height="196" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="356" y="198" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#1e3a8a" font-weight="700" text-anchor="start">Node disk</text>
+<rect x="356" y="214" width="140" height="48" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="370" y="233" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="start">Model cache</text>
+<text x="370" y="249" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">base / LoRA</text>
+<rect x="504" y="214" width="140" height="48" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="518" y="233" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="start">Legacy endpoint dirs</text>
+<text x="518" y="249" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">migration cleanup</text>
+<rect x="356" y="270" width="140" height="44" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="370" y="288" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="start">.tmp-* downloads</text>
+<text x="370" y="303" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">clean after 1 hour</text>
+<rect x="504" y="270" width="140" height="44" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="518" y="288" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="start">Image layers / volumes</text>
+<text x="518" y="303" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">container runtime</text>
+<rect x="356" y="322" width="288" height="32" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="370" y="342" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#0f172a" font-weight="600" text-anchor="start">Logs / heap dumps / failed tasks</text>
+<rect x="340" y="390" width="150" height="78" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="354" y="412" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">Kernel</text>
+<text x="354" y="431" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#475569" font-weight="400" text-anchor="start">page cache</text>
+<text x="354" y="448" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#475569" font-weight="400" text-anchor="start">mmap file pages</text>
+<rect x="510" y="390" width="150" height="78" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="524" y="412" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">Runtime</text>
+<text x="524" y="431" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#475569" font-weight="400" text-anchor="start">worker / trainer</text>
+<text x="524" y="448" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#475569" font-weight="400" text-anchor="start">compressor</text>
+<rect x="340" y="486" width="320" height="48" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="354" y="506" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">Container runtime</text>
+<text x="354" y="523" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">image layers, volumes, bind mounts</text>
+<rect x="720" y="110" width="300" height="260" rx="14" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.3"/>
+<text x="740" y="138" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" fill="#0f172a" font-weight="700" text-anchor="start">GPU / VRAM</text>
+<text x="740" y="156" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">Residency and lease</text>
+<rect x="738" y="174" width="264" height="44" rx="8" fill="#ffffff" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="752" y="192" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="start">Resident base model</text>
+<text x="752" y="207" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">weights and engine state</text>
+<rect x="738" y="226" width="264" height="44" rx="8" fill="#ffffff" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="752" y="244" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="start">LoRA / intermediates</text>
+<text x="752" y="259" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">loaded per task</text>
+<rect x="738" y="278" width="264" height="58" rx="8" fill="#ffffff" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="752" y="298" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="start">GPU lease</text>
+<text x="752" y="315" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">request, heartbeat, release</text>
+<rect x="40" y="660" width="1120" height="96" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.3"/>
+<text x="58" y="686" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">Control plane</text>
+<rect x="56" y="702" width="220" height="36" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="70" y="725" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#0f172a" font-weight="600" text-anchor="start">serving / training / pipeline</text>
+<rect x="292" y="702" width="220" height="36" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="306" y="725" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#0f172a" font-weight="600" text-anchor="start">GC: TTL / LRU / watermarks</text>
+<rect x="528" y="702" width="220" height="36" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="542" y="725" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#0f172a" font-weight="600" text-anchor="start">metrics and alerts</text>
+<rect x="764" y="702" width="380" height="36" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="778" y="725" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#0f172a" font-weight="600" text-anchor="start">leases, active refs, loading tasks</text>
+<path d="M 264 182 L 338 238" fill="none" stroke="#2563eb" stroke-width="1.7" marker-end="url(#arrow-blue)"/>
+<text x="284" y="170" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#2563eb" font-weight="600" text-anchor="start">first download</text>
+<path d="M 264 246 L 338 292" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="284" y="266" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">image pull</text>
+<path d="M 430 390 L 430 370" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+<text x="438" y="382" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#2563eb" font-weight="600" text-anchor="start">read</text>
+<path d="M 490 429 L 510 429" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+<text x="492" y="420" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#2563eb" font-weight="600" text-anchor="start">mmap</text>
+<path d="M 660 429 L 720 340" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+<text x="665" y="382" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#2563eb" font-weight="600" text-anchor="start">load</text>
+<path d="M 402 702 L 402 636" fill="none" stroke="#d97706" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arrow-orange)"/>
+<text x="412" y="670" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#d97706" font-weight="600" text-anchor="start">automatic reclaim</text>
+<path d="M 950 702 L 950 594" fill="none" stroke="#64748b" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arrow-dashed)"/>
+<text x="960" y="650" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">metrics / leases</text>
+<text x="40" y="795" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Boundary: GC owns model cache and temporary dirs; source data, VRAM, and container volumes have separate owners.</text>
+<text x="1040" y="795" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="end">solid: data path</text>
+</svg>
