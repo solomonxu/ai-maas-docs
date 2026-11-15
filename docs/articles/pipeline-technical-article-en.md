@@ -2,7 +2,7 @@
 
 > **Building OpenMaas · Part 1**
 >
-> Draft v0.1 · 2026-11-12
+> Version 1.0 · 2026-11-12
 >
 > By XU Meng
 >

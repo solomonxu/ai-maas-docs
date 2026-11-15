@@ -2,6 +2,8 @@
 
 > Building OpenMaas · GPU Resource Governance
 >
+> Version 1.0 | 2026-11-13
+>
 > By XU Meng
 >
 > Keywords: GPU governance, VRAM, leases, model residency, interactive QoS, bounded eviction
