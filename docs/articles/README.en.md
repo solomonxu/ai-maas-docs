@@ -15,6 +15,8 @@ The Building OpenMaas engineering series. Charts and test data are local baselin
 | [一块 GPU 上的四种资源：训推平台的 GPU 资源治理](./gpu-resource-governance-article.md) | Chinese version |
 | [Cache, Disk, and Load: The Resource Lifecycle of an Inference Platform](./cache-disk-load-lifecycle-article-en.md) | Model cache, page cache, load path, disk cleanup, and automatic GC |
 | [缓存、磁盘与加载：推理平台的资源生命周期](./cache-disk-load-lifecycle-article.md) | Chinese version |
+| [Speech Center: Turning an Audio File into a Deliverable Transcript](./speech-center-article-en.md) | File-based ASR/TTS tasks, licensing, languages, and data retention |
+| [语音中心：一段录音怎样变成一份可交付的文本](./speech-center-article.md) | Chinese version |
 
 ## Notes
 

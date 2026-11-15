@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<title>语音中心总图</title><desc>Web、网关、语音服务、ASR/TTS worker、任务库、配额缓存 和 对象存储。</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#059669"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+<marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.06"/></filter>
+</defs>
+<rect width="1200" height="760" fill="#ffffff"/>
+<text x="40" y="42" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="22" fill="#0f172a" font-weight="700" text-anchor="start">语音中心总图</text><text x="40" y="66" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="400" text-anchor="start">网页、接口、语音服务、执行器、任务库和对象存储的关系。</text>
+<rect x="40" y="120" width="180" height="78" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="60" y="152" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">网页 / API</text>
+<text x="60" y="173" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">提交、轮询、取消</text>
+<rect x="270" y="120" width="150" height="78" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="290" y="152" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">网关</text>
+<text x="290" y="173" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">鉴权、租户、路由</text>
+<path d="M 220 159 L 268 159" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+<rect x="460" y="100" width="320" height="250" rx="14" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.3"/>
+<text x="482" y="130" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="16" fill="#1e3a8a" font-weight="700" text-anchor="start">语音服务</text>
+<text x="482" y="150" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">控制面</text>
+<rect x="482" y="170" width="130" height="36" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="496" y="193" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#0f172a" font-weight="600" text-anchor="start">任务 / 租约</text>
+<rect x="622" y="170" width="136" height="36" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="636" y="193" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#0f172a" font-weight="600" text-anchor="start">配额 / 审计</text>
+<rect x="482" y="218" width="276" height="36" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="496" y="241" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#0f172a" font-weight="600" text-anchor="start">结果 / 历史 / 下载代理</text>
+<rect x="482" y="270" width="276" height="56" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="496" y="293" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="start">任务接口</text>
+<text x="496" y="311" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">网页与脚本共用任务</text>
+<path d="M 420 159 L 458 159" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+<rect x="830" y="100" width="330" height="110" rx="14" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.3"/>
+<text x="850" y="130" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="15" fill="#0f172a" font-weight="700" text-anchor="start">转写执行器</text>
+<text x="850" y="151" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#475569" font-weight="400" text-anchor="start">GPU / 转写引擎</text>
+<text x="850" y="170" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">自动识别使用 Whisper</text>
+<text x="850" y="188" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">内部调用 + 临时地址</text>
+<rect x="830" y="230" width="330" height="110" rx="14" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.3"/>
+<text x="850" y="260" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="15" fill="#0f172a" font-weight="700" text-anchor="start">合成执行器</text>
+<text x="850" y="281" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#475569" font-weight="400" text-anchor="start">CPU / 合成引擎</text>
+<text x="850" y="300" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">按音色选择引擎</text>
+<text x="850" y="318" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="start">内部调用 + 临时地址</text>
+<path d="M 780 180 L 828 145" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+<text x="794" y="150" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#059669" font-weight="600" text-anchor="start">转写</text>
+<path d="M 780 245 L 828 275" fill="none" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+<text x="794" y="255" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#d97706" font-weight="600" text-anchor="start">合成</text>
+<rect x="460" y="430" width="250" height="100" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="480" y="460" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="14" fill="#0f172a" font-weight="700" text-anchor="start">任务库</text>
+<text x="480" y="482" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">任务记录</text>
+<text x="480" y="500" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">任务、状态、保留期</text>
+<rect x="730" y="430" width="200" height="100" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="750" y="460" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="14" fill="#0f172a" font-weight="700" text-anchor="start">配额缓存</text>
+<text x="750" y="482" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">配额 / 租约</text>
+<rect x="950" y="430" width="210" height="100" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="970" y="460" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="14" fill="#0f172a" font-weight="700" text-anchor="start">对象存储</text>
+<text x="970" y="482" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">输入音频</text>
+<text x="970" y="500" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">合成结果</text>
+<path d="M 620 350 L 585 428" fill="none" stroke="#64748b" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arrow-dashed)"/>
+<path d="M 680 350 L 830 428" fill="none" stroke="#64748b" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arrow-dashed)"/>
+<path d="M 740 350 L 1050 428" fill="none" stroke="#64748b" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arrow-dashed)"/>
+<text x="40" y="610" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">边界：客户端只调用 语音服务；执行器只在集群内访问；音频下载走鉴权代理。</text>
+<rect x="40" y="650" width="1120" height="70" rx="12" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="60" y="680" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">应用面</text>
+<text x="150" y="680" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">默认关闭，按需启用；不影响训练和推理主链路。</text>
+<text x="40" y="735" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">实线：请求 / 任务下发　　虚线：状态、配额、对象读写</text>
+</svg>

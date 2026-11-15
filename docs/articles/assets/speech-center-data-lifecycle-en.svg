@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650">
+<title>Speech Data Lifecycle</title><desc>ASR audio, transcript, TTS text, generated audio, task records, and source separation.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#059669"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+<marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.06"/></filter>
+</defs>
+<rect width="1200" height="650" fill="#ffffff"/>
+<text x="40" y="42" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="22" fill="#0f172a" font-weight="700" text-anchor="start">Speech Data Lifecycle</text><text x="40" y="66" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="400" text-anchor="start">Audio, text, results, and task records use different retention periods.</text>
+<rect x="40" y="150" width="200" height="76" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="140.0" y="181" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#0f172a" font-weight="700" text-anchor="middle">Upload audio</text>
+<text x="140.0" y="202" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="middle">temporary upload area</text>
+<path d="M 240 188 L 308 188" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+<rect x="310" y="150" width="200" height="76" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="410.0" y="181" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#0f172a" font-weight="700" text-anchor="middle">Task execution</text>
+<text x="410.0" y="202" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="middle">task record</text>
+<path d="M 510 188 L 578 188" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+<rect x="580" y="150" width="200" height="76" rx="12" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.2"/>
+<text x="680.0" y="181" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#0f172a" font-weight="700" text-anchor="middle">Results and artifacts</text>
+<text x="680.0" y="202" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="middle">object storage</text>
+<path d="M 780 188 L 848 188" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+<rect x="850" y="150" width="200" height="76" rx="12" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.2"/>
+<text x="950.0" y="181" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#0f172a" font-weight="700" text-anchor="middle">History and cleanup</text>
+<text x="950.0" y="202" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b" font-weight="400" text-anchor="middle">retention / delete</text>
+<rect x="40" y="290" width="520" height="130" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="60" y="322" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="14" fill="#0f172a" font-weight="700" text-anchor="start">ASR</text>
+<text x="60" y="348" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Original audio: deleted at terminal state; 24-hour fallback</text>
+<text x="60" y="374" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Transcript: follows task retention; 30 days in center</text>
+<text x="60" y="400" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Logs: task ID, duration, error code; no audio/full text</text>
+<rect x="590" y="290" width="530" height="130" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="610" y="322" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="14" fill="#0f172a" font-weight="700" text-anchor="start">TTS</text>
+<text x="610" y="348" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Text: encrypted; database stores ciphertext</text>
+<text x="610" y="374" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Audio: 30 days in center; 24 hours in chat</text>
+<text x="610" y="400" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Download: authenticated proxy; short-lived</text>
+<rect x="40" y="460" width="520" height="78" rx="12" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.2"/>
+<text x="60" y="490" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">Center jobs</text>
+<text x="60" y="513" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">Owner only; paging/filter/play/download/delete/clear; 30 days</text>
+<rect x="590" y="460" width="530" height="78" rx="12" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.2"/>
+<text x="610" y="490" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">Chat jobs</text>
+<text x="610" y="513" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10" fill="#64748b" font-weight="400" text-anchor="start">dictation/read-aloud; 24 hours; outside center history</text>
+<text x="40" y="590" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Deletion: object storage first, then database record.</text>
+<text x="40" y="616" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Task records follow result retention for audit and troubleshooting.</text>
+</svg>

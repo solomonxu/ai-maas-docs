@@ -15,6 +15,8 @@ OpenMaas 工程系列文章。文章中的图表和测试数据以本地基线�
 | [Four Resources on One GPU: GPU Resource Governance for Training and Inference Platforms](./gpu-resource-governance-article-en.md) | English version |
 | [缓存、磁盘与加载：推理平台的资源生命周期](./cache-disk-load-lifecycle-article.md) | 模型缓存、磁盘占用、page cache、加载路径与自动回收 |
 | [Cache, Disk, and Load: The Resource Lifecycle of an Inference Platform](./cache-disk-load-lifecycle-article-en.md) | English version |
+| [语音中心：一段录音怎样变成一份可交付的文本](./speech-center-article.md) | 文件式 ASR/TTS 任务、许可证、多语言与数据保留 |
+| [Speech Center: Turning an Audio File into a Deliverable Transcript](./speech-center-article-en.md) | English version |
 
 ## 说明
 

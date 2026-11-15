@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+<title>Language Coverage</title><desc>46 TTS languages, 50 voices; 41 ASR languages; ready, degraded, non-commercial, and hidden states.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#059669"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/></marker>
+<marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.06"/></filter>
+</defs>
+<rect width="1200" height="700" fill="#ffffff"/>
+<text x="40" y="42" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="22" fill="#0f172a" font-weight="700" text-anchor="start">Language Coverage</text><text x="40" y="66" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="12" fill="#64748b" font-weight="400" text-anchor="start">46 TTS languages and 50 voices; 41 ASR languages plus automatic detection.</text>
+<text x="40" y="158" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">TTS 46</text>
+<rect x="250" y="130" width="178.26086956521738" height="48" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.1"/>
+<text x="339.1304347826087" y="159" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="middle">Ready 10</text>
+<rect x="428.2608695652174" y="130" width="534.7826086956521" height="48" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.1"/>
+<text x="695.6521739130435" y="159" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="middle">Degraded 30</text>
+<rect x="963.0434782608695" y="130" width="106.95652173913044" height="48" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1.1"/>
+<text x="1016.5217391304348" y="159" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="middle">Non-commercial 6</text>
+<text x="1080.0" y="159" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="600" text-anchor="start">46</text>
+<text x="40" y="270" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">ASR 41</text>
+<rect x="250" y="242" width="40.0" height="48" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.1"/>
+<text x="270.0" y="271" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="middle">Ready 2</text>
+<rect x="290.0" y="242" width="780.0" height="48" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.1"/>
+<text x="680.0" y="271" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="11" fill="#0f172a" font-weight="600" text-anchor="middle">Degraded 39</text>
+<text x="1080.0" y="271" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="600" text-anchor="start">41</text>
+<text x="250" y="326" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Automatic mode: Whisper / CPU; not counted in 41 languages.</text>
+<text x="40" y="390" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="11" fill="#dc2626" font-weight="600" text-anchor="start">Non-commercial TTS: he / hi / th / ku / lb / sr</text>
+<text x="40" y="418" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Not in TTS: lt / id / ms / hy / is / ka / ml / sw</text>
+<text x="40" y="446" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Hidden ASR: bn / te; Trial: ur / sl / sr / lb</text>
+<rect x="40" y="490" width="1120" height="90" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="60" y="522" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Ready: passed the quality gate; Degraded: pipeline works, business quality still under evaluation.</text>
+<text x="60" y="548" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Synthesized audio validates the pipeline; real business samples are required for acceptance.</text>
+<text x="40" y="630" font-family="Inter, Noto Sans CJK SC, Noto Sans SC, Segoe UI, Arial, sans-serif" font-size="10.5" fill="#64748b" font-weight="400" text-anchor="start">Shared catalog 49; translation 48; current gap: yue.</text>
+</svg>
